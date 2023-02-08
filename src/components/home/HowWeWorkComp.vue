@@ -7,21 +7,28 @@
         <p>They find us</p>
       </div>
 
-      <div class="blog-slider">
+      <div class="blog-slider" v-if="response.length > 0">
         <div class="blog-slider__wrp swiper-wrapper">
-          <div class="blog-slider__item swiper-slide">
+          <div
+            v-for="item in response"
+            :key="item.id"
+            class="blog-slider__item swiper-slide"
+          >
             <div class="blog-slider__img">
-              <img src="@/assets/images/hww-professional.png" alt="" />
+              <img :src="media + item.image" :alt="item.alt_text" />
             </div>
             <div class="blog-slider__content">
-              <div class="blog-slider__title">Professional</div>
+              <div class="blog-slider__title">{{ item.name }}</div>
               <div class="blog-slider__text">
-                RIMBA is surrounded by people with their specialized disciplines and ready to make the best deal with you.
+                <pre>
+                    {{ item.description }}
+                  </pre
+                >
               </div>
             </div>
           </div>
 
-          <div class="blog-slider__item swiper-slide">
+          <!-- <div class="blog-slider__item swiper-slide">
             <div class="blog-slider__img">
               <img src="@/assets/images/hww-reliable.png" alt="" />
             </div>
@@ -55,7 +62,7 @@
                 We value our employees’ mental wellness by providing flexible working hours and also having fun while working!
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="blog-slider__pagination"></div>
       </div>
@@ -64,10 +71,21 @@
 </template>
 
 <script>
+import { getContent } from "@/api/rimba";
+
 export default {
   name: "HowWeWorkComp",
   props: {
     msg: String,
+  },
+  data() {
+    return {
+      response: [],
+      media: process.env.VUE_APP_MEDIA_URL,
+    };
+  },
+  beforeMount() {
+    this.refreshHowWeWork();
   },
   mounted: function () {
     var swiper = new Swiper(".blog-slider", {
@@ -83,6 +101,16 @@ export default {
         clickable: true,
       },
     });
+  },
+  methods: {
+    async refreshHowWeWork() {
+      const getResponse = await getContent("how-we-work");
+      if (getResponse.status == 200) {
+        this.response = getResponse.data.data;
+      } else {
+        console.log(getResponse);
+      }
+    },
   },
 };
 </script>

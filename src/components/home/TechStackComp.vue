@@ -11,33 +11,9 @@
         <div class="box">
           <h3>Mobile Development</h3>
           <div class="lit-box">
-            <div class="boxie">
-              <img src="@/assets/images/tech-stack/flutter.png" alt="" />
-              <p>Flutter</p>
-            </div>
-            <div class="boxie">
-              <img src="@/assets/images/tech-stack/react-native.png" alt="" />
-              <p>React Native</p>
-            </div>
-            <div class="boxie">
-              <img
-                src="@/assets/images/tech-stack/java.png"
-                alt=""
-                style="margin-bottom: 11px"
-              />
-              <p>Java</p>
-            </div>
-            <div class="boxie">
-              <img src="@/assets/images/tech-stack/laravel.png" alt="" />
-              <p>Laravel</p>
-            </div>
-            <div class="boxie">
-              <img src="@/assets/images/tech-stack/swift.png" alt="" />
-              <p>Swift</p>
-            </div>
-            <div class="boxie">
-              <img src="@/assets/images/tech-stack/kotlin.png" alt="" />
-              <p>Kotlin</p>
+            <div class="boxie" v-for="mobile in category.mobile" :key="mobile.id">
+              <img :src="media + mobile.image" :alt="mobile.alt_text" />
+              <p>{{ mobile.name }}</p>
             </div>
           </div>
         </div>
@@ -45,29 +21,9 @@
         <div class="box">
           <h3>Web Development</h3>
           <div class="lit-box">
-            <div class="boxie">
-              <img src="@/assets/images/tech-stack/laravel.png" alt="" />
-              <p>Laravel</p>
-            </div>
-            <div class="boxie">
-              <img src="@/assets/images/tech-stack/react-native.png" alt="" />
-              <p>React.js</p>
-            </div>
-            <div class="boxie">
-              <img src="@/assets/images/tech-stack/node.png" alt="" />
-              <p>Node.js</p>
-            </div>
-            <div class="boxie">
-              <img src="@/assets/images/tech-stack/vue.png" alt="" />
-              <p>Vue.js</p>
-            </div>
-            <div class="boxie">
-              <img src="@/assets/images/tech-stack/go.png" alt="" />
-              <p>Go</p>
-            </div>
-            <div class="boxie">
-              <img src="@/assets/images/tech-stack/js.png" alt="" />
-              <p>Javascript</p>
+            <div class="boxie" v-for="web in category.web" :key="web.id">
+              <img :src="media + web.image" :alt="web.alt_text" />
+              <p>{{ web.name }}</p>
             </div>
           </div>
         </div>
@@ -75,29 +31,9 @@
         <div class="box">
           <h3>Design</h3>
           <div class="lit-box">
-            <div class="boxie">
-              <img src="@/assets/images/tech-stack/figma.png" alt="" />
-              <p>Figma</p>
-            </div>
-            <div class="boxie">
-              <img src="@/assets/images/tech-stack/ai.png" alt="" />
-              <p>AI</p>
-            </div>
-            <div class="boxie">
-              <img src="@/assets/images/tech-stack/photoshop.png" alt="" />
-              <p>Photoshop</p>
-            </div>
-            <div class="boxie">
-              <img src="@/assets/images/tech-stack/xd.png" alt="" />
-              <p>Adobe XD</p>
-            </div>
-            <div class="boxie">
-              <img src="@/assets/images/tech-stack/miro.png" alt="" />
-              <p>Miro</p>
-            </div>
-            <div class="boxie">
-              <img src="@/assets/images/tech-stack/invision.png" alt="" />
-              <p>inVision</p>
+            <div class="boxie" v-for="design in category.design" :key="design.id">
+              <img :src="media + design.image" :alt="design.alt_text" />
+              <p>{{ design.name }}</p>
             </div>
           </div>
         </div>
@@ -107,10 +43,48 @@
 </template>
 
 <script>
+import { getContent } from "@/api/rimba";
 export default {
   name: "TechStackComp",
   props: {
     msg: String,
+  },
+  data() {
+    return {
+      category: {
+        mobile: [],
+        web: [],
+        design: [],
+      },
+      media: process.env.VUE_APP_MEDIA_URL
+    };
+  },
+  methods: {
+    async refreshTechStack() {
+      const getResponse = await getContent(
+        "tech-stack"
+      );
+      if (getResponse.status == 200) {
+        const data = getResponse.data.data;
+        this.setByCategory(data);
+      } else {
+        console.log(getResponse);
+      }
+    },
+    setByCategory(data) {
+      data.map((tech) => {
+        if (tech.type === "Mobile Development") {
+          this.category.mobile.push(tech);
+        }else if(tech.type === "Web Development"){
+          this.category.web.push(tech); 
+        }else if(tech.type === "Design"){
+          this.category.design.push(tech);
+        }
+      });
+    },
+  },
+  mounted() {
+    this.refreshTechStack();
   },
 };
 </script>

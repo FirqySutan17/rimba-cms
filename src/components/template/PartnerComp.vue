@@ -17,14 +17,15 @@
             circularFallback: 'bound',
           }"
         >
-          <img src="@/assets/images/partner/part-1.png" />
+          <img v-for="partner in partners" :key="partner.id" :src="media+partner.image" :alt="partner.alt_text"/>
+          <!-- <img src="@/assets/images/partner/part-1.png" />
           <img src="@/assets/images/partner/part-2.png" />
           <img src="@/assets/images/partner/part-3.png" />
           <img src="@/assets/images/partner/part-4.png" />
           <img src="@/assets/images/partner/part-5.png" />
           <img src="@/assets/images/partner/part-3.png" />
           <img src="@/assets/images/partner/part-4.png" />
-          <img src="@/assets/images/partner/part-5.png" />
+          <img src="@/assets/images/partner/part-5.png" /> -->
         </Flicking>
       </div>
     </div>
@@ -37,6 +38,7 @@ import { AutoPlay, Pagination } from "@egjs/flicking-plugins";
 import "@egjs/vue3-flicking/dist/flicking.css";
 import "@egjs/flicking-plugins/dist/flicking-plugins.css";
 import "@egjs/vue3-flicking/dist/flicking-inline.css";
+import {getContent} from "@/api/rimba"
 
 const plugins = [
   new AutoPlay({ duration: 2000, direction: "NEXT", stopOnHover: false }),
@@ -49,11 +51,26 @@ export default {
   data: function () {
     return {
       plugins,
+      partners: [],
+      media: process.env.VUE_APP_MEDIA_URL
     };
   },
   name: "PartnerComp",
   props: {
     msg: String,
+  },
+  mounted() {
+    this.refreshPartners();
+  },
+  methods: {
+    async refreshPartners(){
+      const getResponse = await getContent("partner");
+      if(getResponse.status == 200){
+        this.partners = getResponse.data.data;
+      }else{
+        console.log(getResponse);
+      }
+    }
   },
 };
 </script>

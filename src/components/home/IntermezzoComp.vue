@@ -6,11 +6,11 @@
           <img src="@/assets/images/inter-pc.png" alt="" />
         </div>
         <div class="box">
-          <h3>Start your free <br />30-day trial</h3>
-          <p>Based on 10,000+ reviews on</p>
+          <h3>{{ bannerData.name }}</h3>
+          <div v-html="bannerData.description"></div>
         </div>
         <div class="box">
-          <a href="#" class="btn-ads">Getting Started!</a>
+          <a :href="bannerData.link" class="btn-ads" :style="{backgroundColor: bannerData.color}">Getting Started!</a>
         </div>
       </div>
     </div>
@@ -18,11 +18,30 @@
 </template>
 
 <script>
+import { getContent } from '@/api/rimba';
 export default {
   name: "IntermezzoComp",
   props: {
     msg: String,
   },
+  data() {
+    return {
+      bannerData: {}
+    }
+  },
+  mounted() {
+    this.refreshBanner();
+  },
+  methods: {
+    async refreshBanner(){
+      const getResponse = await getContent("product-promotion");
+      if(getResponse.status == 200){
+        this.bannerData = getResponse.data.data[0];
+      }else{
+        console.log(getResponse);
+      }
+    }
+  }
 };
 </script>
 

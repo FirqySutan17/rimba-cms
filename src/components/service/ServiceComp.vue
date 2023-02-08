@@ -18,16 +18,15 @@
       </div>
 
       <div class="body-box-service">
-        <div class="box">
-          <img src="@/assets/images/service/hand-mobile.png" alt="" />
-          <h2>Mobile Application</h2>
-          <p>
-            We assist in the development of mobile applications for various
-            operating systems.
-          </p>
+        <div v-for="service in services" :key="service.id" class="box">
+          <img :src="media+service.image" :alt="service.alt_text" />
+          <h2>{{ service.name }}</h2>
+          <div v-html="service.description">
+
+          </div>
         </div>
 
-        <div class="box">
+        <!-- <div class="box">
           <img src="@/assets/images/service/cloud-download.png" alt="" />
           <h2>Cloud</h2>
           <p>We provide cloud storage that is more convenient to utilize.</p>
@@ -45,17 +44,37 @@
           <img src="@/assets/images/service/3d-travel.png" alt="" />
           <h2>E-Commerce Solution</h2>
           <p>We are really supportive of your company and business.</p>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { getContent } from "@/api/rimba";
 export default {
   name: "ServiceComp",
   props: {
     msg: String,
+  },
+  data() {
+    return {
+      services: [],
+      media: process.env.VUE_APP_MEDIA_URL
+    }
+  },
+  mounted() {
+    this.refreshService();
+  },
+  methods: {
+    async refreshService() {
+      const getResponse = await getContent("service");
+      if(getResponse.status == 200){
+        this.services = getResponse.data.data;
+      }else{
+        console.log(getResponse);
+      }
+    },
   },
 };
 </script>
