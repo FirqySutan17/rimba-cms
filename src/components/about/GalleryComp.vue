@@ -84,6 +84,7 @@
                   class="select-box__option"
                   for="10"
                   aria-hidden="aria-hidden"
+                  @click="refreshImage()"
                   >Choose year</label
                 >
               </li>
@@ -92,6 +93,7 @@
                   class="select-box__option"
                   for="0"
                   aria-hidden="aria-hidden"
+                  @click='filterImage("2019")'
                   >2019</label
                 >
               </li>
@@ -100,6 +102,7 @@
                   class="select-box__option"
                   for="1"
                   aria-hidden="aria-hidden"
+                  @click='filterImage("2020")'
                   >2020</label
                 >
               </li>
@@ -108,6 +111,7 @@
                   class="select-box__option"
                   for="2"
                   aria-hidden="aria-hidden"
+                  @click='filterImage("2021")'
                   >2021</label
                 >
               </li>
@@ -116,6 +120,7 @@
                   class="select-box__option"
                   for="3"
                   aria-hidden="aria-hidden"
+                  @click='filterImage("2022")'
                   >2022</label
                 >
               </li>
@@ -123,7 +128,7 @@
                 <label
                   class="select-box__option"
                   for="4"
-                  aria-hidden="aria-hidden"
+                  aria-hidden="aria-hidden" @click='filterImage("2023")'
                   >2023</label
                 >
               </li>
@@ -133,7 +138,7 @@
 
         <div class="gallery-content">
           <div
-            v-for="(src, index) in imgs"
+            v-for="(src, index) in filteredImage"
             :key="index"
             class="gallery-box pic"
             @click="() => showImg(index)"
@@ -143,7 +148,7 @@
 
           <vue-easy-lightbox
             :visible="visible"
-            :imgs="imgs"
+            :imgs="filteredImage"
             :index="index"
             @hide="handleHide"
           ></vue-easy-lightbox>
@@ -159,6 +164,7 @@
 
 <script>
 import VueEasyLightbox from "vue-easy-lightbox";
+import { getContent } from "@/api/rimba";
 
 export default {
   components: {
@@ -169,16 +175,9 @@ export default {
       imgs: "", // Img Url , string or Array of string
       visible: false,
       index: 0, // default: 0
-      imgs: [
-        "https://rimba.lifetime-studios.com/images/about/img-1.png",
-        "https://rimba.lifetime-studios.com/images/about/img-2.png",
-        "https://rimba.lifetime-studios.com/images/about/img-3.png",
-        "https://rimba.lifetime-studios.com/images/about/img-4.png",
-        "https://rimba.lifetime-studios.com/images/about/img-1.png",
-        "https://rimba.lifetime-studios.com/images/about/img-2.png",
-        "https://rimba.lifetime-studios.com/images/about/img-3.png",
-        "https://rimba.lifetime-studios.com/images/about/img-4.png",
-      ],
+      imageData: [],
+      filteredImage:[],
+      media: process.env.VUE_APP_MEDIA_URL
     };
   },
   methods: {
@@ -189,10 +188,33 @@ export default {
     handleHide() {
       this.visible = false;
     },
+    async refreshImage() {
+      const getResponse = await getContent("gallery");
+      if (getResponse.status == 200) {
+        this.imageData = getResponse.data.data;
+        this.filteredImage = [];
+        this.imageData.map((image)=> {
+          this.filteredImage.push(this.media + image.image);
+        });
+      } else {
+        console.log(getResponse);
+      }
+    },
+    filterImage(year) {
+      this.filteredImage = [];
+      this.imageData.map((image) => {
+        if(image.year == year){
+          this.filteredImage.push(this.media+image.image);
+        }
+      });
+    },
   },
   name: "GalleryComp",
   props: {
     msg: String,
+  },
+  mounted() {
+    this.refreshImage();
   },
 };
 </script>
