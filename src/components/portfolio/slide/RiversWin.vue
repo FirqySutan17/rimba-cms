@@ -1,15 +1,15 @@
 <template>
   <section class="porto-window">
-    <div class="porto-content">
+    <div class="porto-content" v-for="porto in data" :key="porto.id">
       <img
         class="porto-img"
-        src="@/assets/images/portofolio/sekar.png"
-        alt=""
+        :src="media + porto.image_cover"
+        :alt="porto.alt_text_cover"
       />
       <div class="title-content">
         <div class="boxie">
-          <h2 class="main-title">Sekar Fuji Food</h2>
-          <span class="sub-title">Type: Data Network Installment (VPN)</span>
+          <h2 class="main-title">{{ porto.name }}</h2>
+          <span class="sub-title">Type: {{ porto.type.name }}</span>
         </div>
         <div class="boxie">
           <router-link to="/portfolio/detail" class="btn-more">
@@ -17,60 +17,7 @@
           </router-link>
         </div>
       </div>
-      <p>
-        PT Sekar Bumi and Fuji Foods Corporation Japan established a joint
-        venture company (joint venture) PT Sekar Fuji Food. Sekar Fuji Food's
-        products in the form of seasonings will help support Sekar Bumi's main
-        activity, namely manufacturing process food products.
-      </p>
-    </div>
-    <div class="porto-content">
-      <img
-        class="porto-img"
-        src="@/assets/images/portofolio/sekar.png"
-        alt=""
-      />
-      <div class="title-content">
-        <div class="boxie">
-          <h2 class="main-title">Sekar Fuji Food</h2>
-          <span class="sub-title">Type: Data Network Installment (VPN)</span>
-        </div>
-        <div class="boxie">
-          <router-link to="/portfolio/detail" class="btn-more">
-            See Project Details
-          </router-link>
-        </div>
-      </div>
-      <p>
-        PT Sekar Bumi and Fuji Foods Corporation Japan established a joint
-        venture company (joint venture) PT Sekar Fuji Food. Sekar Fuji Food's
-        products in the form of seasonings will help support Sekar Bumi's main
-        activity, namely manufacturing process food products.
-      </p>
-    </div>
-    <div class="porto-content">
-      <img
-        class="porto-img"
-        src="@/assets/images/portofolio/sekar.png"
-        alt=""
-      />
-      <div class="title-content">
-        <div class="boxie">
-          <h2 class="main-title">Sekar Fuji Food</h2>
-          <span class="sub-title">Type: Data Network Installment (VPN)</span>
-        </div>
-        <div class="boxie">
-          <router-link to="/portfolio/detail" class="btn-more">
-            See Project Details
-          </router-link>
-        </div>
-      </div>
-      <p>
-        PT Sekar Bumi and Fuji Foods Corporation Japan established a joint
-        venture company (joint venture) PT Sekar Fuji Food. Sekar Fuji Food's
-        products in the form of seasonings will help support Sekar Bumi's main
-        activity, namely manufacturing process food products.
-      </p>
+      <div v-html="porto.description"></div>
     </div>
   </section>
 </template>
@@ -80,6 +27,12 @@ export default {
   name: "RiversWin",
   props: {
     msg: String,
+    data: Array,
+  },
+  data() {
+    return {
+      media: process.env.VUE_APP_MEDIA_URL,
+    };
   },
 };
 </script>

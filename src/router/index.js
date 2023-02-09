@@ -35,6 +35,7 @@ const routes = [
     path: "/portfolio/detail",
     name: "portfolio-detail",
     component: PortfolioDetailView,
+    props: true
   },
   {
     path: "/events",

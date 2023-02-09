@@ -1,61 +1,23 @@
 <template>
   <section class="porto-window">
-    <div class="porto-content">
-      <img class="porto-img" src="@/assets/images/portofolio/goto.png" alt="" />
+    <div class="porto-content" v-for="porto in data" :key="porto.id">
+      <img
+        class="porto-img"
+        :src="media + porto.image_cover"
+        :alt="porto.alt_text_cover"
+      />
       <div class="title-content">
         <div class="boxie">
-          <h2 class="main-title">PT. GoTo Gojek Tokopedia Tbk</h2>
-          <span class="sub-title">Type: Hardware Supply</span>
+          <h2 class="main-title">{{ porto.name }}</h2>
+          <span class="sub-title">Type: {{ porto.type.name }}</span>
         </div>
         <div class="boxie">
-          <router-link to="/portfolio/detail" class="btn-more">
+          <router-link :to="{path: '/portfolio/detail', params:{data: porto}}" class="btn-more">
             See Project Details
           </router-link>
         </div>
       </div>
-      <p>
-        GoTo Group is the largest digital ecosystem in Indonesia. GoTo's mission
-        is to "drive progress" by offering technology infrastructure and
-        solutions for everyone to access and thrive in the digital economy.
-      </p>
-    </div>
-    <div class="porto-content">
-      <img class="porto-img" src="@/assets/images/portofolio/goto.png" alt="" />
-      <div class="title-content">
-        <div class="boxie">
-          <h2 class="main-title">PT. GoTo Gojek Tokopedia Tbk</h2>
-          <span class="sub-title">Type: Hardware Supply</span>
-        </div>
-        <div class="boxie">
-          <router-link to="/portfolio/detail" class="btn-more">
-            See Project Details
-          </router-link>
-        </div>
-      </div>
-      <p>
-        GoTo Group is the largest digital ecosystem in Indonesia. GoTo's mission
-        is to "drive progress" by offering technology infrastructure and
-        solutions for everyone to access and thrive in the digital economy.
-      </p>
-    </div>
-    <div class="porto-content">
-      <img class="porto-img" src="@/assets/images/portofolio/goto.png" alt="" />
-      <div class="title-content">
-        <div class="boxie">
-          <h2 class="main-title">PT. GoTo Gojek Tokopedia Tbk</h2>
-          <span class="sub-title">Type: Hardware Supply</span>
-        </div>
-        <div class="boxie">
-          <router-link to="/portfolio/detail" class="btn-more">
-            See Project Details
-          </router-link>
-        </div>
-      </div>
-      <p>
-        GoTo Group is the largest digital ecosystem in Indonesia. GoTo's mission
-        is to "drive progress" by offering technology infrastructure and
-        solutions for everyone to access and thrive in the digital economy.
-      </p>
+      <div v-html="porto.description"></div>
     </div>
   </section>
 </template>
@@ -65,6 +27,12 @@ export default {
   name: "RocksWin",
   props: {
     msg: String,
+    data: Array,
+  },
+  data() {
+    return {
+      media: process.env.VUE_APP_MEDIA_URL,
+    };
   },
 };
 </script>

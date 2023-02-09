@@ -28,11 +28,11 @@
           </div>
         </div>
         <div class="boxie">
-          <TreesWin />
+          <TreesWin :data="portfolio.trees" />
 
-          <RiversWin />
+          <RiversWin :data="portfolio.rivers" />
 
-          <RocksWin />
+          <RocksWin :data="portfolio.rocks" />
 
           <img class="grass" src="@/assets/images/grass.png" alt="" />
         </div>
@@ -46,6 +46,7 @@ import $ from "jquery";
 import TreesWin from "@/components/portfolio/slide/TreesWin.vue";
 import RiversWin from "@/components/portfolio/slide/RiversWin.vue";
 import RocksWin from "@/components/portfolio/slide/RocksWin.vue";
+import {getContent} from "@/api/rimba";
 
 export default {
   name: "PortfolioComp",
@@ -58,6 +59,7 @@ export default {
     RocksWin,
   },
   mounted: function () {
+    this.refreshPortfolio();
     $(".sidebar-porto li").click(function () {
       $(this)
         .addClass("active-porto")
@@ -70,6 +72,37 @@ export default {
         .stop()
         .hide();
     });
+  },
+  data() {
+    return {
+      portfolio:{
+        trees:[],
+        rivers:[],
+        rocks:[]
+      }
+    }
+  },
+  methods: {
+    async refreshPortfolio(){
+      const getResponse = await getContent("portfolio");
+      if(getResponse.status == 200){
+        const data = getResponse.data.data;
+        this.fliterbyType(data);
+      }else{
+        console.log(getResponse);
+      }
+    },
+    fliterbyType(data){
+      data.map((item) => {  
+        if(item.product_type == "River"){
+          this.portfolio.rivers.push(item);
+        }else if(item.product_type == "Tree"){
+          this.portfolio.trees.push(item);
+        }else if(item.product_type == "Rock"){
+          this.portfolio.rocks.push(item);
+        }
+      });
+    } 
   },
 };
 </script>

@@ -1,54 +1,22 @@
 <template>
   <div class="wrapper-item">
     <div class="container">
-      <div class="box-item">
+      <div class="box-item" v-for="product in products" :key="product.id" :style="{backgroundColor: product.card_color}">
         <div class="box">
-          <img src="@/assets/images/trees/oak-img.png" alt="" />
+          <img :src="media + product.image" :alt="product.alt_text" />
         </div>
         <div class="box">
           <div class="title-set-product">
-            <h2>Oaktree</h2>
+            <h2>{{ product.name }}</h2>
             <img
               src="@/assets/images/best-product.png"
               class="label-product"
-              alt=""
+              alt="" v-if="product.label == 1"
             />
           </div>
 
-          <p>
-            A total logistic and freight forwarding system that connect to
-            Accurate Online (A top 3 and powerful accounting system in
-            Indonesia)
-          </p>
-          <a href="#" class="btn-oaktree">Request a demo</a>
-        </div>
-      </div>
-
-      <div class="box-item">
-        <div class="box">
-          <img src="@/assets/images/trees/bamboo-img.png" alt="" />
-        </div>
-        <div class="box">
-          <h2>Bambootree</h2>
-          <p>
-            An instant software to provide duplicating database in a convenient
-            way!
-          </p>
-          <a href="#" class="btn-bambootree">Request a demo</a>
-        </div>
-      </div>
-
-      <div class="box-item">
-        <div class="box">
-          <img src="@/assets/images/trees/pine-img.png" alt="" />
-        </div>
-        <div class="box">
-          <h2>Pinetree</h2>
-          <p>
-            Arrange trucking to accommodate the goods to be sent to the
-            destination.
-          </p>
-          <a href="#" class="btn-pinetree">Request a demo</a>
+          <div v-html="product.description"></div>
+          <a href="#" class="btn-oaktree" :style="{backgroundColor: product.button_color}">Request a demo</a>
         </div>
       </div>
     </div>
@@ -56,10 +24,30 @@
 </template>
 
 <script>
+import { getContent } from '@/api/rimba';
 export default {
   name: "ItemComp",
   props: {
     msg: String,
+  },
+  data() {
+    return {
+      products: [],
+      media: process.env.VUE_APP_MEDIA_URL
+    }
+  },
+  methods: {
+    async refreshProducts(){
+      const getResponse = await getContent("product");
+      if(getResponse.status === 200){
+        this.products = getResponse.data.data;
+      }else{
+        console.log(getResponse);
+      }
+    }
+  },
+  mounted() {
+    this.refreshProducts();
   },
 };
 </script>

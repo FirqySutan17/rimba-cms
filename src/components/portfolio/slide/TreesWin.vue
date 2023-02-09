@@ -1,11 +1,15 @@
 <template>
   <section class="porto-window">
-    <div class="porto-content">
-      <img class="porto-img" src="@/assets/images/portofolio/depo.png" alt="" />
+    <div class="porto-content" v-for="porto in data" :key="porto.id">
+      <img
+        class="porto-img"
+        :src="media + porto.image_cover"
+        :alt="porto.alt_text_cover"
+      />
       <div class="title-content">
         <div class="boxie">
-          <h2 class="main-title">Depo Semut</h2>
-          <span class="sub-title">Type: Company Website</span>
+          <h2 class="main-title">{{ porto.name }}</h2>
+          <span class="sub-title">Type: {{ porto.type.name }}</span>
         </div>
         <div class="boxie">
           <router-link to="/portfolio/detail" class="btn-more">
@@ -13,52 +17,7 @@
           </router-link>
         </div>
       </div>
-      <p>
-        Depo Semut Paint Shop was established in 2018. Registered under the name
-        of PT. Semesta Mauna Utama and being under the auspices of the Mauna
-        Group is expected to further increase retail market penetration in
-        Sulawesi, especially South Sulawesi.
-      </p>
-    </div>
-    <div class="porto-content">
-      <img class="porto-img" src="@/assets/images/portofolio/depo.png" alt="" />
-      <div class="title-content">
-        <div class="boxie">
-          <h2 class="main-title">Depo Semut</h2>
-          <span class="sub-title">Type: Company Website</span>
-        </div>
-        <div class="boxie">
-          <router-link to="/portfolio/detail" class="btn-more">
-            See Project Details
-          </router-link>
-        </div>
-      </div>
-      <p>
-        Depo Semut Paint Shop was established in 2018. Registered under the name
-        of PT. Semesta Mauna Utama and being under the auspices of the Mauna
-        Group is expected to further increase retail market penetration in
-        Sulawesi, especially South Sulawesi.
-      </p>
-    </div>
-    <div class="porto-content">
-      <img class="porto-img" src="@/assets/images/portofolio/depo.png" alt="" />
-      <div class="title-content">
-        <div class="boxie">
-          <h2 class="main-title">Depo Semut</h2>
-          <span class="sub-title">Type: Company Website</span>
-        </div>
-        <div class="boxie">
-          <router-link to="/portfolio/detail" class="btn-more">
-            See Project Details
-          </router-link>
-        </div>
-      </div>
-      <p>
-        Depo Semut Paint Shop was established in 2018. Registered under the name
-        of PT. Semesta Mauna Utama and being under the auspices of the Mauna
-        Group is expected to further increase retail market penetration in
-        Sulawesi, especially South Sulawesi.
-      </p>
+      <div v-html="porto.description"></div>
     </div>
   </section>
 </template>
@@ -68,6 +27,12 @@ export default {
   name: "TreesWin",
   props: {
     msg: String,
+    data: Array,
+  },
+  data() {
+    return {
+      media: process.env.VUE_APP_MEDIA_URL,
+    };
   },
 };
 </script>

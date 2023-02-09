@@ -13,58 +13,17 @@
           </div>
 
           <div class="journey-carousel">
-            <div class="box">
+            <div class="box" v-for="journey in allJourney" :key="journey.id">
               <div class="timeline-marker">
-                <span class="year-number">2017</span>
+                <span class="year-number">{{journey.start_year}}</span>
               </div>
               <div class="bigBox">
                 <div class="boxie">
-                  <img src="@/assets/images/about-img.png" alt="" />
+                  <img :src="media + journey.image" :alt="journey.alt_text" />
                 </div>
                 <div class="boxie">
-                  <h2>Oaktree Development Initialization</h2>
-                  <p>
-                    We received a small project with a small group of people to
-                    make a forwarding service application and decided to name it
-                    “Oaktree”
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="box">
-              <div class="timeline-marker">
-                <span class="year-number">2017</span>
-              </div>
-              <div class="bigBox">
-                <div class="boxie">
-                  <img src="@/assets/images/about-img.png" alt="" />
-                </div>
-                <div class="boxie">
-                  <h2>Development</h2>
-                  <p>
-                    “Oaktree” was first developed by a small group of people.
-                    Continous adaptation to needs was carried out in order to
-                    meeting expectations.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="box">
-              <div class="timeline-marker">
-                <span class="year-number">2017</span>
-              </div>
-              <div class="bigBox">
-                <div class="boxie">
-                  <img src="@/assets/images/about-img.png" alt="" />
-                </div>
-                <div class="boxie">
-                  <h2>Evaluation & Bug Fixing</h2>
-                  <p>
-                    Evaluation of the parts that need to be improved is carried
-                    out both in terms of appearance and existing functions.
-                  </p>
+                  <h2>{{ journey.name }}</h2>
+                  <div v-html="journey.description"></div>
                 </div>
               </div>
             </div>
@@ -77,37 +36,13 @@
             <p>Get to Know Our Insects</p>
           </div>
           <div class="team-carousel">
-            <div class="team__item">
-              <img src="@/assets/images/about/user-1.png" alt="" />
-              <h2>Dragonfly</h2>
-              <p class="role-user">Chief Executive Officer</p>
-              <p class="role-quotes">“Be afraid of making the same mistakes“</p>
-            </div>
-            <div class="team__item">
-              <img src="@/assets/images/about/user-1.png" alt="" />
-              <h2>Lacewing</h2>
-              <p class="role-user">Sales Marketer</p>
-              <p class="role-quotes">
-                “Never give up! Set a goal and go for it!“
-              </p>
-            </div>
-            <div class="team__item">
-              <img src="@/assets/images/about/user-1.png" alt="" />
-              <h2>Cockroach</h2>
-              <p class="role-user">Project Manager</p>
-              <p class="role-quotes">
-                “Learn new things in all fields so that they become competitive
-                and selling for all generations.”
-              </p>
-            </div>
-            <div class="team__item">
-              <img src="@/assets/images/about/user-1.png" alt="" />
-              <h2>Butterfly</h2>
-              <p class="role-user">Programmer</p>
-              <p class="role-quotes">
-                “Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni,
-                repellat ab dicta saepe dolore obcaecati ea. ”
-              </p>
+            <div class="team__item" v-for="member in team" :key="member.id">
+              <img :src="media + member.image" :alt="member.alt_text" />
+              <h2>{{ member.name }}</h2>
+              <p class="role-user">{{ member.position }}</p>
+              <div class="role-quotes" v-html="member.description">
+
+              </div>
             </div>
           </div>
         </div>
@@ -117,10 +52,40 @@
 </template>
 
 <script>
+import {getContent} from "@/api/rimba";
 export default {
   name: "TimelineComp",
   props: {
     msg: String,
+  },
+  data() {
+    return {
+      allJourney:[],
+      team:[],
+      media: process.env.VUE_APP_MEDIA_URL
+    }
+  },
+  methods: {
+    async refreshJourney(){
+      const getResponse = await getContent("journey");
+      if(getResponse.status == 200){
+        this.allJourney = getResponse.data.data;
+      }else{
+        console.log(getResponse);
+      }
+    },
+    async refreshTeam(){
+      const getResponse = await getContent("team");
+      if(getResponse.status == 200){
+        this.team = getResponse.data.data;
+      }else{
+        console.log(getResponse);
+      }
+    }
+  },
+  mounted() {
+    this.refreshJourney();
+    this.refreshTeam();
   },
 };
 </script>
