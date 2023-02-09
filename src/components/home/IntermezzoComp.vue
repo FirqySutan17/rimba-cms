@@ -10,7 +10,12 @@
           <div v-html="bannerData.description"></div>
         </div>
         <div class="box">
-          <a :href="bannerData.link" class="btn-ads" :style="{backgroundColor: bannerData.color}">Getting Started!</a>
+          <a
+            :href="bannerData.link"
+            class="btn-ads"
+            :style="{ backgroundColor: bannerData.color }"
+            >Getting Started!</a
+          >
         </div>
       </div>
     </div>
@@ -18,7 +23,7 @@
 </template>
 
 <script>
-import { getContent } from '@/api/rimba';
+import { getContent } from "@/api/rimba";
 export default {
   name: "IntermezzoComp",
   props: {
@@ -26,22 +31,22 @@ export default {
   },
   data() {
     return {
-      bannerData: {}
-    }
+      bannerData: {},
+    };
   },
   mounted() {
     this.refreshBanner();
   },
   methods: {
-    async refreshBanner(){
+    async refreshBanner() {
       const getResponse = await getContent("product-promotion");
-      if(getResponse.status == 200){
+      if (getResponse.status == 200) {
         this.bannerData = getResponse.data.data[0];
-      }else{
+      } else {
         console.log(getResponse);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -122,10 +127,10 @@ export default {
   transition: all 0.5s ease;
 }
 .wrapper-inter .box:nth-child(3) a:hover {
-  background: transparent;
+  background: transparent !important;
   border: 1px solid #fff;
   transition: all 0.5s ease;
-  color: #fff;
+  color: #000;
 }
 @media (max-width: 1440px) {
   .wrapper-inter .box:nth-child(3) a {

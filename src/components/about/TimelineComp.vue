@@ -14,7 +14,9 @@
 
           <div class="journey-carousel">
             <div class="box">
-              <div class="timeline-marker"></div>
+              <div class="timeline-marker">
+                <span class="year-number">2017</span>
+              </div>
               <div class="bigBox">
                 <div class="boxie">
                   <img src="@/assets/images/about-img.png" alt="" />
@@ -31,8 +33,9 @@
             </div>
 
             <div class="box">
-              <div class="timeline-marker-2"></div>
-              <div class="timeline-marker-3"></div>
+              <div class="timeline-marker">
+                <span class="year-number">2017</span>
+              </div>
               <div class="bigBox">
                 <div class="boxie">
                   <img src="@/assets/images/about-img.png" alt="" />
@@ -49,7 +52,9 @@
             </div>
 
             <div class="box">
-              <div class="timeline-marker-5"></div>
+              <div class="timeline-marker">
+                <span class="year-number">2017</span>
+              </div>
               <div class="bigBox">
                 <div class="boxie">
                   <img src="@/assets/images/about-img.png" alt="" />
@@ -209,10 +214,17 @@ export default {
   width: 15px;
   margin-right: 30px;
 }
+.year-number {
+  position: absolute;
+  top: 18.2px;
+  left: 10.2px;
+  color: #fff;
+  z-index: 10;
+}
 .timeline-marker::before {
   border: 2px solid #fff;
   border-radius: 100%;
-  content: "2017";
+  content: "";
   display: flex;
   justify-content: center;
   align-items: center;
@@ -236,6 +248,7 @@ export default {
   top: 24px;
   bottom: 0;
   left: 26px;
+  height: 377px;
 }
 
 .timeline-marker-2 {
@@ -352,6 +365,7 @@ export default {
 
 .journey-carousel::-webkit-scrollbar {
   width: 0.5vw; /* THIS WILL RESET THE DEFAULT SCORLLBAR STYLING */
+  display: none;
 }
 
 /* TO STYLE THE SCROLLBAR TRACK */
@@ -449,7 +463,6 @@ export default {
   border-radius: 5vw;
 }
 .team__item {
-  scroll-snap-align: start;
   background: #ffffff;
   border-radius: 16px;
   padding: 50px 60px;

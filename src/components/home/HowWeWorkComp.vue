@@ -119,6 +119,7 @@ export default {
 .wrapper-howwework {
   padding: 120px 0px;
   background: #002744;
+  overflow-x: hidden;
 }
 @media (max-width: 1600px) {
   .title-wrap .circle-title {

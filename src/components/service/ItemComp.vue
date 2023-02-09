@@ -6,7 +6,15 @@
           <img src="@/assets/images/trees/oak-img.png" alt="" />
         </div>
         <div class="box">
-          <h2>Oaktree</h2>
+          <div class="title-set-product">
+            <h2>Oaktree</h2>
+            <img
+              src="@/assets/images/best-product.png"
+              class="label-product"
+              alt=""
+            />
+          </div>
+
           <p>
             A total logistic and freight forwarding system that connect to
             Accurate Online (A top 3 and powerful accounting system in
@@ -91,6 +99,7 @@ export default {
   font-weight: 700;
   font-size: 50px;
   line-height: 75px;
+  display: flex;
   /* identical to box height */
 
   color: #ffffff;
@@ -136,5 +145,13 @@ export default {
   background: transparent;
   color: #fff;
   transition: all 0.5s ease;
+}
+.title-set-product {
+  display: flex;
+}
+.title-set-product img {
+  width: 20%;
+  object-fit: contain;
+  margin-left: 20px;
 }
 </style>
