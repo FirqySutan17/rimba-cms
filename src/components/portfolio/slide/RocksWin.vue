@@ -12,6 +12,7 @@
           <span class="sub-title">Type: {{ porto.type.name }}</span>
         </div>
         <div class="boxie">
+          <!-- <button class="btn-more" @click="showDetail(porto)"> See Projects Details </button> -->
           <router-link :to="{path: '/portfolio/detail', params:{data: porto}}" class="btn-more">
             See Project Details
           </router-link>

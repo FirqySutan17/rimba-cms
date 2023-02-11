@@ -147,10 +147,9 @@ export default {
   name: "DetailComp",
   props: {
     msg: String,
-    data: Array
   },
-  mounted() {
-    console.log(this.data);
+  created() {
+    
   },
 };
 </script>

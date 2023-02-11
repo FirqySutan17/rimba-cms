@@ -7,8 +7,8 @@
         <p>They find us</p>
       </div>
 
-      <div class="blog-slider" v-if="response.length > 0">
-        <div class="blog-slider__wrp swiper-wrapper">
+      <div class="blog-slider">
+        <div class="blog-slider__wrp swiper-wrapper" ref="slider">
           <div
             v-for="item in response"
             :key="item.id"
@@ -84,7 +84,7 @@ export default {
       media: process.env.VUE_APP_MEDIA_URL,
     };
   },
-  beforeMount() {
+  created() {
     this.refreshHowWeWork();
   },
   mounted: function () {
@@ -99,6 +99,18 @@ export default {
       pagination: {
         el: ".blog-slider__pagination",
         clickable: true,
+      },
+      on: {
+        slideChange: function () {
+          if (this.isEnd) {
+            this.loopDestroy();
+            this.loopCreate();
+          }
+          if (this.isBeginning) {
+            this.loopDestroy();
+            this.loopCreate();
+          }
+        },
       },
     });
   },

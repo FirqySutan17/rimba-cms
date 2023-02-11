@@ -19,6 +19,11 @@ export default {
     PortfolioDetailComp,
     ContactComp,
     FooterComp,
+  },mounted(){
+    console.log(this.$route.params);
   },
+  props:{
+    data: Array
+  }
 };
 </script>

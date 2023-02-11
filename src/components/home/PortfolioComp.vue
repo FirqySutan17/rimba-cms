@@ -9,29 +9,8 @@
     <div class="wrapper-carousel">
       <!-- Set up your HTML -->
       <flickity class="flickity" ref="flickity" :options="flickityOptions">
-        <div class="carousel-cell">
-          <img src="@/assets/images/portofolio/port-1.png" alt="" />
-        </div>
-        <div class="carousel-cell">
-          <img src="@/assets/images/portofolio/port-2.png" alt="" />
-        </div>
-        <div class="carousel-cell">
-          <img src="@/assets/images/portofolio/port-3.png" alt="" />
-        </div>
-        <div class="carousel-cell">
-          <img src="@/assets/images/portofolio/port-4.png" alt="" />
-        </div>
-        <div class="carousel-cell">
-          <img src="@/assets/images/portofolio/port-5.png" alt="" />
-        </div>
-        <div class="carousel-cell">
-          <img src="@/assets/images/portofolio/port-1.png" alt="" />
-        </div>
-        <div class="carousel-cell">
-          <img src="@/assets/images/portofolio/port-2.png" alt="" />
-        </div>
-        <div class="carousel-cell">
-          <img src="@/assets/images/portofolio/port-3.png" alt="" />
+        <div class="carousel-cell" v-for="item in portfolio" :key="item.id">
+          <img :src="media + item.image_cover" :alt="item.alt_text_cover" />
         </div>
       </flickity>
     </div>
@@ -40,6 +19,7 @@
 
 <script>
 import Flickity from "vue-flickity";
+import { getContent } from "@/api/rimba";
 
 export default {
   components: {
@@ -58,11 +38,30 @@ export default {
         // autoPlay: true,
         // any options from Flickity can be used
       },
+      portfolio: [],
+      media: process.env.VUE_APP_MEDIA_URL,
     };
   },
   name: "PortfolioComp",
   props: {
     msg: String,
+  },
+  methods: {
+    async refreshPorto() {
+      const getResponse = await getContent("portfolio");
+      if (getResponse.status == 200) {
+        this.portfolio = getResponse.data.data;
+        this.$nextTick(function () {
+          // the magic
+          this.$refs.flickity.rerender();
+        });
+      } else {
+        console.log(getResponse);
+      }
+    },
+  },
+  created() {
+    this.refreshPorto();
   },
 };
 </script>

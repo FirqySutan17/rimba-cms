@@ -87,31 +87,26 @@
           </div>
         </div>
 
-        <div class="box-content-second">
+        <div class="box-content-second" v-if="product.length > 0">
           <div class="box">
-            <h2>Pinetree</h2>
-            <p>
-              Pinetree gives customer load, driver, and route real-time
-              visibility together with clear and detailed trip information.
-            </p>
-            <a href="#">Visit Pinetree</a>
+            <h2>{{ product[0].name }}</h2>
+            <div v-html="product[0].description">
+            </div>
+            <a href="#" :style="{backgroundColor: product[0].button_color}">Visit Pinetree</a>
           </div>
           <div class="box">
-            <img src="@/assets/images/trees/pine-img.png" alt="" />
+            <img :src="media + product[0].image" :alt="product[0].alt_text" />
           </div>
         </div>
 
-        <div class="box-content-four">
+        <div class="box-content-four" v-if="product.length > 0">
           <div class="box">
-            <h2>Oaktree</h2>
-            <p>
-              An integrated freight forwarding system that helps to simplify all
-              issues in one platform.
-            </p>
-            <a href="#">Visit Oak Tree</a>
+            <h2>{{ product[2].name }}</h2>
+            <div v-html="product[2].description"></div>
+            <a href="#" :style="{backgroundColor: product[2].button_color}">Visit Oak Tree</a>
           </div>
           <div class="box">
-            <img src="@/assets/images/trees/oak-img.png" alt="" />
+            <img :src="media + product[2].image" :alt="product[2].alt_text" />
           </div>
         </div>
 
@@ -145,17 +140,14 @@
           </div>
         </div>
 
-        <div class="box-content-seven">
+        <div class="box-content-seven" v-if="product.length > 0">
           <div class="box">
-            <h2>Bambootree</h2>
-            <p>
-              A breakthrough app what provides consolidation data or backdate of
-              accounting service.
-            </p>
-            <a href="#">Visit Bambootree</a>
+            <h2>{{ product[1].name }}</h2>
+            <div v-html="product[1].description"></div>
+            <a href="#" :style="{backgroundColor: product[1].button_color}">Visit Bambootree</a>
           </div>
           <div class="box">
-            <img src="@/assets/images/trees/bamboo-img.png" alt="" />
+            <img :src="media + product[1].image" :alt="product[1].alt_text" />
           </div>
         </div>
       </div>
@@ -165,60 +157,54 @@
       <div class="card-content">
         <div class="card-box">
           <img src="@/assets/images/trees/old/trees-4.png" alt="" />
-          <div class="box">
+          <div class="box" v-if="product.length > 0">
             <div class="boxie">
-              <h3>Oaktree</h3>
-              <p>
-                An integrated freight forwarding system that helps to simplify
-                all issues in one platform.
-              </p>
+              <h3>{{ product[2].name }}</h3>
+              <div v-html="product[2].description">
+
+              </div>
               <div class="link-visit">
-                <a href="#">Visit Oak Tree</a>
-                <div class="best-product"></div>
+                <a href="#" :style="{backgroundColor: product[2].button_color}">Visit Oak Tree</a>
+                <div class="best-product" v-if="product[2].label == 1"></div>
               </div>
             </div>
             <div class="boxie">
-              <img src="@/assets/images/trees/oak-img.png" alt="" />
+              <img :src="media + product[2].image" :alt="product[2].alt_text" />
             </div>
           </div>
         </div>
 
         <div class="card-box">
           <img src="@/assets/images/trees/old/trees-7.png" alt="" />
-          <div class="box">
+          <div class="box" v-if="product.length > 0">
             <div class="boxie">
-              <h3>Bambootree</h3>
-              <p>
-                An instant software to provide duplicating database in a
-                convenient way!
-              </p>
+              <h3>{{ product[1].name }}</h3>
+              <div v-html="product[1].description"></div>
+
               <div class="link-visit">
-                <a href="#" style="background: #ffcd00">Visit BambooTree</a>
-                <div class="best-product"></div>
+                <a href="#" :style="{backgroundColor: product[1].button_color}">Visit BambooTree</a>
+                <div class="best-product" v-if="product[1].label == 1"></div>
               </div>
             </div>
             <div class="boxie">
-              <img src="@/assets/images/trees/bamboo-img.png" alt="" />
+              <img :src="media + product[1].image" :alt="product[1].alt_text" />
             </div>
           </div>
         </div>
 
         <div class="card-box">
           <img src="@/assets/images/trees/old/trees-2.png" alt="" />
-          <div class="box">
+          <div class="box" v-if="product.length > 0">
             <div class="boxie">
-              <h3>Pinetree</h3>
-              <p>
-                Arrange trucking to accommodate the goods to be sent to the
-                destination.
-              </p>
+              <h3>{{ product[0].name }}</h3>
+              <div v-html="product[0].description"></div>
               <div class="link-visit">
-                <a href="#" style="background: #207fa8">Visit Pinetree</a>
-                <div class="best-product"></div>
+                <a href="#" :style="{backgroundColor: product[0].button_color}">Visit Pinetree</a>
+                <div class="best-product" v-if="product[1].label == 1"></div>
               </div>
             </div>
             <div class="boxie">
-              <img src="@/assets/images/trees/pine-img.png" alt="" />
+              <img :src="media + product[0].image" :alt="product[0].alt_text" />
             </div>
           </div>
         </div>
@@ -266,11 +252,31 @@
 
 <script>
 import $ from "jquery";
+import { getContent } from "@/api/rimba";
 
 export default {
   name: "TreesBanner",
   props: {
     msg: String,
+  },
+  data() {
+    return {
+      product:[],
+      media: process.env.VUE_APP_MEDIA_URL
+    }
+  },
+  methods: {
+    async refreshProduct(){
+      const getResponse = await getContent('product');
+      if(getResponse.status == 200){
+        this.product = getResponse.data.data;
+      }else{
+        console.log(getResponse);
+      }
+    }
+  },
+  created() {
+    this.refreshProduct();
   },
   mounted: function () {
     $(".boxService").click(function () {
