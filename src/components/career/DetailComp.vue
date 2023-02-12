@@ -46,11 +46,7 @@
           <div class="man-box">
             <h2>Mandatory Skills</h2>
             <div class="mandatory-box">
-              <span>UI/UX Design</span>
-              <span>Figma</span>
-              <span>Design System</span>
-              <span>Wireframing</span>
-              <span>Prototyping</span>
+              <span v-for="skill in career.skills" :key="skill.id">{{ skill.name }}</span>
             </div>
           </div>
 
