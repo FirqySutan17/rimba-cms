@@ -20,7 +20,7 @@
         <div class="filter-year">
           <div class="select-box">
             <div class="select-box__current" tabindex="1">
-              <div class="select-box__value">
+              <div class="select-box__value" @click="filterbyYear(null)">
                 <input
                   class="select-box__input"
                   type="radio"
@@ -31,7 +31,7 @@
                 />
                 <p class="select-box__input-text">Choose year</p>
               </div>
-              <div class="select-box__value">
+              <div class="select-box__value" @click="filterbyYear(2020)">
                 <input
                   class="select-box__input"
                   type="radio"
@@ -41,7 +41,7 @@
                 />
                 <p class="select-box__input-text">2020</p>
               </div>
-              <div class="select-box__value">
+              <div class="select-box__value" @click="filterbyYear(2021)">
                 <input
                   class="select-box__input"
                   type="radio"
@@ -51,7 +51,7 @@
                 />
                 <p class="select-box__input-text">2021</p>
               </div>
-              <div class="select-box__value">
+              <div class="select-box__value" @click="filterbyYear(2022)">
                 <input
                   class="select-box__input"
                   type="radio"
@@ -61,7 +61,7 @@
                 />
                 <p class="select-box__input-text">2022</p>
               </div>
-              <div class="select-box__value">
+              <div class="select-box__value" @click="filterbyYear(2023)">
                 <input
                   class="select-box__input"
                   type="radio"
@@ -159,118 +159,27 @@
             </div>
           </div>
 
-          <!-- <div class="boxie">
-            <div class="stack-img">
-              <img src="@/assets/images/event/img-1.png" alt="" />
-              <img src="@/assets/images/event/img-2.png" alt="" />
-              <img src="@/assets/images/event/img-3.png" alt="" />
-            </div>
-            <div class="stack-content">
-              <h2>RIMBA Donation</h2>
-              <p>Jul 17, 2022</p>
-              <a href="#">See activity</a>
-            </div>
-          </div>
-
-          <div class="boxie">
-            <div class="stack-img">
-              <img src="@/assets/images/event/img-1.png" alt="" />
-              <img src="@/assets/images/event/img-2.png" alt="" />
-              <img src="@/assets/images/event/img-3.png" alt="" />
-            </div>
-            <div class="stack-content">
-              <h2>RIMBA Camp</h2>
-              <p>Apr 17, 2022</p>
-              <a href="#">See activity</a>
-            </div>
-          </div>
-
-          <div class="boxie">
-            <div class="stack-img">
-              <img src="@/assets/images/event/img-1.png" alt="" />
-              <img src="@/assets/images/event/img-2.png" alt="" />
-              <img src="@/assets/images/event/img-3.png" alt="" />
-            </div>
-            <div class="stack-content">
-              <h2>Outbound</h2>
-              <p>Aug 17, 2022</p>
-              <a href="#">See activity</a>
-            </div>
-          </div>
-
-          <div class="boxie">
-            <div class="stack-img">
-              <img src="@/assets/images/event/img-1.png" alt="" />
-              <img src="@/assets/images/event/img-2.png" alt="" />
-              <img src="@/assets/images/event/img-3.png" alt="" />
-            </div>
-            <div class="stack-content">
-              <h2>New Year Party</h2>
-              <p>Jul 17, 2022</p>
-              <a href="#">See activity</a>
-            </div>
-          </div>
-
-          <div class="boxie">
-            <div class="stack-img">
-              <img src="@/assets/images/event/img-1.png" alt="" />
-              <img src="@/assets/images/event/img-2.png" alt="" />
-              <img src="@/assets/images/event/img-3.png" alt="" />
-            </div>
-            <div class="stack-content">
-              <h2>Annual Evaluation</h2>
-              <p>Dec 17, 2022</p>
-              <a href="#">See activity</a>
-            </div>
-          </div> -->
         </div>
 
         <div class="page-box">
           <ul class="pagination" role="menubar" aria-label="Pagination">
-            <!-- <li>
-              <a href="">
-                <span style="transform: rotate(180deg)">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <path d="M0.969947 1.28097C0.900215 1.21124 0.844901 1.12846 0.807163 1.03735C0.769424 0.946237 0.75 0.848587 0.75 0.749971C0.75 0.651355 0.769424 0.553705 0.807163 0.462596C0.844901 0.371487 0.900215 0.288703 0.969947 0.218971C1.03968 0.149239 1.12246 0.0939246 1.21357 0.056186C1.30468 0.0184473 1.40233 -0.000976563 1.50095 -0.000976562C1.59956 -0.000976562 1.69721 0.0184473 1.78832 0.056186C1.87943 0.0939246 1.96222 0.149239 2.03195 0.218971L7.28195 5.46897C7.35179 5.53864 7.40721 5.6214 7.44502 5.71252C7.48283 5.80364 7.50229 5.90132 7.50229 5.99997C7.50229 6.09862 7.48283 6.1963 7.44502 6.28742C7.40721 6.37854 7.35179 6.4613 7.28195 6.53097L2.03195 11.781C1.96222 11.8507 1.87943 11.906 1.78832 11.9438C1.69721 11.9815 1.59956 12.0009 1.50095 12.0009C1.40233 12.0009 1.30468 11.9815 1.21357 11.9438C1.12246 11.906 1.03968 11.8507 0.969947 11.781C0.900215 11.7112 0.844901 11.6285 0.807163 11.5373C0.769424 11.4462 0.75 11.3486 0.75 11.25C0.75 11.1514 0.769424 11.0537 0.807163 10.9626C0.844901 10.8715 0.900215 10.7887 0.969947 10.719L5.69045 5.99997L0.969947 1.28097ZM12.0009 0.749971C12.0009 0.551058 11.9219 0.360293 11.7813 0.219641C11.6406 0.0789886 11.4499 -2.92063e-05 11.2509 -2.92063e-05C11.052 -2.92063e-05 10.8613 0.0789886 10.7206 0.219641C10.58 0.360293 10.5009 0.551058 10.5009 0.749971V11.25C10.5009 11.4489 10.58 11.6396 10.7206 11.7803C10.8613 11.921 11.052 12 11.2509 12C11.4499 12 11.6406 11.921 11.7813 11.7803C11.9219 11.6396 12.0009 11.4489 12.0009 11.25V0.749971Z" fill="white"/>
-                  </svg>
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <span style="transform: rotate(180deg)">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="8" height="14" viewBox="0 0 8 14" fill="none">
-                    <path d="M0.99095 0.624367C0.892825 0.724827 0.837891 0.859686 0.837891 1.00012C0.837891 1.14055 0.892825 1.27541 0.99095 1.37587L6.47308 6.99974L0.99095 12.6225C0.892825 12.723 0.837891 12.8578 0.837891 12.9982C0.837891 13.1387 0.892825 13.2735 0.99095 13.374C1.03865 13.423 1.09567 13.4619 1.15866 13.4885C1.22165 13.5151 1.28933 13.5288 1.3577 13.5288C1.42607 13.5288 1.49375 13.5151 1.55674 13.4885C1.61973 13.4619 1.67675 13.423 1.72445 13.374L7.5542 7.39237C7.65659 7.28732 7.7139 7.14643 7.7139 6.99974C7.7139 6.85305 7.65659 6.71216 7.5542 6.60712L1.72445 0.625492C1.67675 0.576506 1.61973 0.537571 1.55674 0.510985C1.49375 0.4844 1.42607 0.470703 1.3577 0.470703C1.28933 0.470703 1.22165 0.4844 1.15866 0.510985C1.09567 0.537571 1.03865 0.576506 0.99095 0.625492V0.624367Z" fill="white"/>
-                  </svg>
-                </span>
-              </a>
-            </li> -->
-            <li>
-              <a @click="refreshEvent(1)">
-                <span style="color: lightseagreen !important">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-chevron-bar-left"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M11.854 3.646a.5.5 0 0 1 0 .708L8.207 8l3.647 3.646a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 0 1 .708 0zM4.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 1 0v-13a.5.5 0 0 0-.5-.5z"
-                    />
-                  </svg>
-                </span>
-              </a>
-            </li>
             <li
-              :class="link.active ? 'current' : ''"
               v-for="link in pagination.links"
               :key="link.id"
+              :class="paginationClass(link.url, link.active)"
             >
-              <a v-if="link.label.includes('Previous')">
-                <span style="color: lightseagreen !important">
+              <a
+                v-if="link.label.includes('Previous')"
+                @click="paginationClick(link.url)"
+                class="pagination-tab"
+              >
+                <span
+                  :style="
+                    link.url != null
+                      ? { color: 'lightseagreen' }
+                      : { color: 'white' }
+                  "
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -288,9 +197,16 @@
               </a>
               <a
                 v-else-if="link.label.includes('Next')"
-                :href="link.url != null ? link.url : ''"
+                @click="paginationClick(link.url)"
+                class="pagination-tab"
               >
-                <span style="color: lightseagreen !important">
+                <span
+                  :style="
+                    link.url != null
+                      ? { color: 'lightseagreen' }
+                      : { color: 'white' }
+                  "
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -306,27 +222,12 @@
                   </svg>
                 </span>
               </a>
-              <a v-else :href="link.url != null ? link.url : ''">
+              <a
+                v-else
+                @click="paginationClick(link.url)"
+                class="pagination-tab"
+              >
                 {{ link.label }}
-              </a>
-            </li>
-            <li>
-              <a @click="refreshEvent(pagination.last_page)">
-                <span style="color: lightseagreen !important">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-chevron-bar-right"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M4.146 3.646a.5.5 0 0 0 0 .708L7.793 8l-3.647 3.646a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708 0zM11.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5z"
-                    />
-                  </svg>
-                </span>
               </a>
             </li>
           </ul>
@@ -385,8 +286,16 @@ export default {
       console.log(result);
       return result;
     },
-    async refreshEvent(page) {
-      const getResponse = await getContent("event?page=" + page);
+    filterbyYear(year){
+      console.log(year);
+      if(year != null){
+        this.refreshEvent("event?date=" + year);
+      }else{
+        this.refreshEvent("event");
+      }
+    },
+    async refreshEvent(url) {
+      const getResponse = await getContent(url);
       if (getResponse.status == 200) {
         this.events = getResponse.data.data.data;
         this.visible = [];
@@ -400,13 +309,33 @@ export default {
         console.log(getResponse);
       }
     },
+    paginationClick(url){
+      if(url != null){
+        const splitResult = url.split("/");
+        splitResult.map((item) => {
+          if(item.includes("event")){
+            this.refreshEvent(item);
+          }
+        })
+      }
+    },
+    paginationClass(url, isActive) {
+      let classes = "";
+      if (url === null) {
+        classes = classes + "disabled ";
+      }
+      if (isActive) {
+        classes = classes + "current";
+      }
+      return classes;
+    },
   },
   name: "EventComp",
   props: {
     msg: String,
   },
   created() {
-    this.refreshEvent();
+    this.refreshEvent('event');
   },
 };
 </script>
