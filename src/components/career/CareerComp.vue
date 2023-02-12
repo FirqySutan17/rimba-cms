@@ -22,25 +22,18 @@
               <i class="fa-solid fa-map-location-dot icon-rimba"></i>
               <div class="select-menu">
                 <div class="select-btn">
-                  <span class="sBtn-text">All location</span>
+                  <span class="sBtn-text">{{ selectedLocation }}</span>
                   <i class="bx bx-chevron-down"></i>
                 </div>
 
                 <ul class="options">
-                  <li class="option">
-                    <span class="option-text">Github</span>
-                  </li>
-                  <li class="option">
-                    <span class="option-text">Instagram</span>
-                  </li>
-                  <li class="option">
-                    <span class="option-text">Linkedin</span>
-                  </li>
-                  <li class="option">
-                    <span class="option-text">Facebook</span>
-                  </li>
-                  <li class="option">
-                    <span class="option-text">Twitter</span>
+                  <li
+                    class="option"
+                    v-for="location in locations"
+                    :key="location.id"
+                    @click="setLocation(location.name)"
+                  >
+                    <span class="option-text">{{ location.name }}</span>
                   </li>
                 </ul>
               </div>
@@ -50,11 +43,12 @@
               <input
                 type="text"
                 placeholder="Type your dream job"
+                v-model="searchText"
                 name="search"
                 autocomplete="off"
               />
             </div>
-            <div class="btn-search"><i class="fa fa-search"></i> Search</div>
+            <div class="btn-search" @click="searchCareer"><i class="fa fa-search"></i> Search</div>
             <!-- <button type="submit" class="btn-search">
               <i class="fa fa-search"></i> Search
             </button> -->
@@ -67,40 +61,25 @@
         </div>
 
         <div class="job-list hide-pop">
-          <div class="job-item">
+          <div
+            class="job-item"
+            v-for="(career, index) in careers"
+            :key="career.id"
+          >
             <div class="boxie">
-              <span class="number-item">1. </span>
+              <span class="number-item"
+                >{{ index * pagination.currentPage + 1 }}.
+              </span>
             </div>
             <div class="boxie">
-              <h2>UI/UX Designer</h2>
+              <h2>{{ career.name }}</h2>
               <div class="icon-list">
                 <i class="fa-solid fa-hourglass-end icon-rim"></i>
-                Full-time
+                {{ career.work_type }}
               </div>
               <div class="icon-list">
                 <i class="fa-solid fa-map-location-dot icon-rim"></i>
-                Jakarta, Indonesia
-              </div>
-            </div>
-            <div class="boxie">
-              <router-link to="/career/detail" class="btn-details">
-                See details
-              </router-link>
-            </div>
-          </div>
-          <div class="job-item">
-            <div class="boxie">
-              <span class="number-item">2. </span>
-            </div>
-            <div class="boxie">
-              <h2>UI/UX Designer</h2>
-              <div class="icon-list">
-                <i class="fa-solid fa-hourglass-end icon-rim"></i>
-                Full-time
-              </div>
-              <div class="icon-list">
-                <i class="fa-solid fa-map-location-dot icon-rim"></i>
-                Jakarta, Indonesia
+                {{ career.locatione.name }}
               </div>
             </div>
             <div class="boxie">
@@ -110,130 +89,73 @@
             </div>
           </div>
 
-          <div class="job-item">
-            <div class="boxie">
-              <span class="number-item">3. </span>
-            </div>
-            <div class="boxie">
-              <h2>UI/UX Designer</h2>
-              <div class="icon-list">
-                <i class="fa-solid fa-hourglass-end icon-rim"></i>
-                Full-time
-              </div>
-              <div class="icon-list">
-                <i class="fa-solid fa-map-location-dot icon-rim"></i>
-                Jakarta, Indonesia
-              </div>
-            </div>
-            <div class="boxie">
-              <router-link to="/career/detail" class="btn-details">
-                See details
-              </router-link>
-            </div>
-          </div>
-
-          <div class="job-item">
-            <div class="boxie">
-              <span class="number-item">4. </span>
-            </div>
-            <div class="boxie">
-              <h2>UI/UX Designer</h2>
-              <div class="icon-list">
-                <i class="fa-solid fa-hourglass-end icon-rim"></i>
-                Full-time
-              </div>
-              <div class="icon-list">
-                <i class="fa-solid fa-map-location-dot icon-rim"></i>
-                Jakarta, Indonesia
-              </div>
-            </div>
-            <div class="boxie">
-              <router-link to="/career/detail" class="btn-details">
-                See details
-              </router-link>
-            </div>
-          </div>
-
-          <div class="job-item">
-            <div class="boxie">
-              <span class="number-item">5. </span>
-            </div>
-            <div class="boxie">
-              <h2>UI/UX Designer</h2>
-              <div class="icon-list">
-                <i class="fa-solid fa-hourglass-end icon-rim"></i>
-                Full-time
-              </div>
-              <div class="icon-list">
-                <i class="fa-solid fa-map-location-dot icon-rim"></i>
-                Jakarta, Indonesia
-              </div>
-            </div>
-            <div class="boxie">
-              <router-link to="/career/detail" class="btn-details">
-                See details
-              </router-link>
-            </div>
-          </div>
           <div class="page-box">
             <ul class="pagination" role="menubar" aria-label="Pagination">
-              <!-- <li>
-              <a href="">
-                <span style="transform: rotate(180deg)">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <path d="M0.969947 1.28097C0.900215 1.21124 0.844901 1.12846 0.807163 1.03735C0.769424 0.946237 0.75 0.848587 0.75 0.749971C0.75 0.651355 0.769424 0.553705 0.807163 0.462596C0.844901 0.371487 0.900215 0.288703 0.969947 0.218971C1.03968 0.149239 1.12246 0.0939246 1.21357 0.056186C1.30468 0.0184473 1.40233 -0.000976563 1.50095 -0.000976562C1.59956 -0.000976562 1.69721 0.0184473 1.78832 0.056186C1.87943 0.0939246 1.96222 0.149239 2.03195 0.218971L7.28195 5.46897C7.35179 5.53864 7.40721 5.6214 7.44502 5.71252C7.48283 5.80364 7.50229 5.90132 7.50229 5.99997C7.50229 6.09862 7.48283 6.1963 7.44502 6.28742C7.40721 6.37854 7.35179 6.4613 7.28195 6.53097L2.03195 11.781C1.96222 11.8507 1.87943 11.906 1.78832 11.9438C1.69721 11.9815 1.59956 12.0009 1.50095 12.0009C1.40233 12.0009 1.30468 11.9815 1.21357 11.9438C1.12246 11.906 1.03968 11.8507 0.969947 11.781C0.900215 11.7112 0.844901 11.6285 0.807163 11.5373C0.769424 11.4462 0.75 11.3486 0.75 11.25C0.75 11.1514 0.769424 11.0537 0.807163 10.9626C0.844901 10.8715 0.900215 10.7887 0.969947 10.719L5.69045 5.99997L0.969947 1.28097ZM12.0009 0.749971C12.0009 0.551058 11.9219 0.360293 11.7813 0.219641C11.6406 0.0789886 11.4499 -2.92063e-05 11.2509 -2.92063e-05C11.052 -2.92063e-05 10.8613 0.0789886 10.7206 0.219641C10.58 0.360293 10.5009 0.551058 10.5009 0.749971V11.25C10.5009 11.4489 10.58 11.6396 10.7206 11.7803C10.8613 11.921 11.052 12 11.2509 12C11.4499 12 11.6406 11.921 11.7813 11.7803C11.9219 11.6396 12.0009 11.4489 12.0009 11.25V0.749971Z" fill="white"/>
-                  </svg>
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href="">
-                <span style="transform: rotate(180deg)">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="8" height="14" viewBox="0 0 8 14" fill="none">
-                    <path d="M0.99095 0.624367C0.892825 0.724827 0.837891 0.859686 0.837891 1.00012C0.837891 1.14055 0.892825 1.27541 0.99095 1.37587L6.47308 6.99974L0.99095 12.6225C0.892825 12.723 0.837891 12.8578 0.837891 12.9982C0.837891 13.1387 0.892825 13.2735 0.99095 13.374C1.03865 13.423 1.09567 13.4619 1.15866 13.4885C1.22165 13.5151 1.28933 13.5288 1.3577 13.5288C1.42607 13.5288 1.49375 13.5151 1.55674 13.4885C1.61973 13.4619 1.67675 13.423 1.72445 13.374L7.5542 7.39237C7.65659 7.28732 7.7139 7.14643 7.7139 6.99974C7.7139 6.85305 7.65659 6.71216 7.5542 6.60712L1.72445 0.625492C1.67675 0.576506 1.61973 0.537571 1.55674 0.510985C1.49375 0.4844 1.42607 0.470703 1.3577 0.470703C1.28933 0.470703 1.22165 0.4844 1.15866 0.510985C1.09567 0.537571 1.03865 0.576506 0.99095 0.625492V0.624367Z" fill="white"/>
-                  </svg>
-                </span>
-              </a>
-            </li> -->
-              <li><a href="">1</a></li>
-              <li><a href="">2</a></li>
-              <li><a href="">3</a></li>
-              <li class="current"><a href="">4</a></li>
-              <li><a href="">5</a></li>
-              <li style="background: lightseagreen">
-                <a href="">
-                  <span>
+              <li
+                v-for="link in pagination.links"
+                :key="link.id"
+                :class="paginationClass(link.url, link.active)"
+              >
+                <a
+                  v-if="link.label.includes('Previous')"
+                  @click="paginationClick(link.url)"
+                  class="pagination-tab"
+                >
+                  <span
+                    :style="
+                      link.url != null
+                        ? { color: 'lightseagreen' }
+                        : { color: 'white' }
+                    "
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="8"
-                      height="14"
-                      viewBox="0 0 8 14"
-                      fill="none"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-chevron-left"
+                      viewBox="0 0 16 16"
                     >
                       <path
-                        d="M0.99095 0.624367C0.892825 0.724827 0.837891 0.859686 0.837891 1.00012C0.837891 1.14055 0.892825 1.27541 0.99095 1.37587L6.47308 6.99974L0.99095 12.6225C0.892825 12.723 0.837891 12.8578 0.837891 12.9982C0.837891 13.1387 0.892825 13.2735 0.99095 13.374C1.03865 13.423 1.09567 13.4619 1.15866 13.4885C1.22165 13.5151 1.28933 13.5288 1.3577 13.5288C1.42607 13.5288 1.49375 13.5151 1.55674 13.4885C1.61973 13.4619 1.67675 13.423 1.72445 13.374L7.5542 7.39237C7.65659 7.28732 7.7139 7.14643 7.7139 6.99974C7.7139 6.85305 7.65659 6.71216 7.5542 6.60712L1.72445 0.625492C1.67675 0.576506 1.61973 0.537571 1.55674 0.510985C1.49375 0.4844 1.42607 0.470703 1.3577 0.470703C1.28933 0.470703 1.22165 0.4844 1.15866 0.510985C1.09567 0.537571 1.03865 0.576506 0.99095 0.625492V0.624367Z"
-                        fill="white"
+                        fill-rule="evenodd"
+                        d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
                       />
                     </svg>
                   </span>
                 </a>
-              </li>
-              <li style="background: lightseagreen">
-                <a href="">
-                  <span>
+                <a
+                  v-else-if="link.label.includes('Next')"
+                  @click="paginationClick(link.url)"
+                  class="pagination-tab"
+                >
+                  <span
+                    :style="
+                      link.url != null
+                        ? { color: 'lightseagreen' }
+                        : { color: 'white' }
+                    "
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="12"
-                      height="12"
-                      viewBox="0 0 12 12"
-                      fill="none"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-chevron-right"
+                      viewBox="0 0 16 16"
                     >
                       <path
-                        d="M0.969947 1.28097C0.900215 1.21124 0.844901 1.12846 0.807163 1.03735C0.769424 0.946237 0.75 0.848587 0.75 0.749971C0.75 0.651355 0.769424 0.553705 0.807163 0.462596C0.844901 0.371487 0.900215 0.288703 0.969947 0.218971C1.03968 0.149239 1.12246 0.0939246 1.21357 0.056186C1.30468 0.0184473 1.40233 -0.000976563 1.50095 -0.000976562C1.59956 -0.000976562 1.69721 0.0184473 1.78832 0.056186C1.87943 0.0939246 1.96222 0.149239 2.03195 0.218971L7.28195 5.46897C7.35179 5.53864 7.40721 5.6214 7.44502 5.71252C7.48283 5.80364 7.50229 5.90132 7.50229 5.99997C7.50229 6.09862 7.48283 6.1963 7.44502 6.28742C7.40721 6.37854 7.35179 6.4613 7.28195 6.53097L2.03195 11.781C1.96222 11.8507 1.87943 11.906 1.78832 11.9438C1.69721 11.9815 1.59956 12.0009 1.50095 12.0009C1.40233 12.0009 1.30468 11.9815 1.21357 11.9438C1.12246 11.906 1.03968 11.8507 0.969947 11.781C0.900215 11.7112 0.844901 11.6285 0.807163 11.5373C0.769424 11.4462 0.75 11.3486 0.75 11.25C0.75 11.1514 0.769424 11.0537 0.807163 10.9626C0.844901 10.8715 0.900215 10.7887 0.969947 10.719L5.69045 5.99997L0.969947 1.28097ZM12.0009 0.749971C12.0009 0.551058 11.9219 0.360293 11.7813 0.219641C11.6406 0.0789886 11.4499 -2.92063e-05 11.2509 -2.92063e-05C11.052 -2.92063e-05 10.8613 0.0789886 10.7206 0.219641C10.58 0.360293 10.5009 0.551058 10.5009 0.749971V11.25C10.5009 11.4489 10.58 11.6396 10.7206 11.7803C10.8613 11.921 11.052 12 11.2509 12C11.4499 12 11.6406 11.921 11.7813 11.7803C11.9219 11.6396 12.0009 11.4489 12.0009 11.25V0.749971Z"
-                        fill="white"
+                        fill-rule="evenodd"
+                        d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
                       />
                     </svg>
                   </span>
+                </a>
+                <a
+                  v-else
+                  @click="paginationClick(link.url)"
+                  class="pagination-tab"
+                >
+                  {{ link.label }}
                 </a>
               </li>
             </ul>
@@ -246,6 +168,7 @@
 
 <script>
 import $ from "jquery";
+import { getContent } from "@/api/rimba";
 
 export default {
   name: "CareerComp",
@@ -264,9 +187,9 @@ export default {
 
     options.forEach((option) => {
       option.addEventListener("click", () => {
+        console.log("test");
         let selectedOption = option.querySelector(".option-text").innerText;
         sBtn_text.innerText = selectedOption;
-
         optionMenu.classList.remove("active");
       });
     });
@@ -278,10 +201,91 @@ export default {
       $(".job-list").addClass("show-pop");
     });
   },
+  data() {
+    return {
+      careers: [],
+      locations: [],
+      selectedLocation: "All Location",
+      pagination: {
+        currentPage: null,
+        lastPage: null,
+        links: [],
+      },
+      searchText: ""
+    };
+  },
+  methods: {
+    async refreshCareer(url) {
+      const getResponse = await getContent(url);
+      if (getResponse.status == 200) {
+        this.careers = getResponse.data.data.data;
+        this.pagination.currentPage = getResponse.data.data.current_page;
+        this.pagination.lastPage = getResponse.data.data.last_page;
+        this.pagination.links = getResponse.data.data.links;
+      } else {
+        console.log(getResponse);
+      }
+    },
+    async refreshLocation() {
+      const getResponse = await getContent("location");
+      if (getResponse.status == 200) {
+        this.locations = getResponse.data.data;
+      } else {
+        console.log(getResponse);
+      }
+    },
+    setLocation(name) {
+      this.selectedLocation = name;
+      const optionMenu = document.querySelector(".select-menu");
+      optionMenu.classList.remove("active");
+    },
+    paginationClass(url, isActive) {
+      let classes = "";
+      if (url === null) {
+        classes = classes + "disabled ";
+      }
+      if (isActive) {
+        classes = classes + "current";
+      }
+      return classes;
+    },
+    paginationClick(url) {
+      if (url != null) {
+        const splitResult = url.split("/");
+        splitResult.map((item) => {
+          if (item.includes("career")) {
+            this.refreshCareer(item);
+          }
+        });
+      }
+    },
+    searchCareer(){
+      if(this.searchText != ""){
+        this.refreshCareer('career?name='+this.searchText);
+      }else{
+        this.refreshCareer('career');
+      }
+    }
+  },
+  created() {
+    this.refreshLocation();
+    this.refreshCareer("career");
+  },
 };
 </script>
 
 <style>
+.pagination-tab {
+  cursor: pointer;
+}
+.disabled {
+  background-color: gray !important;
+  border: black !important;
+}
+.disabled:hover {
+  background-color: gray !important;
+  border: black !important;
+}
 .show-pop {
   display: block;
 }

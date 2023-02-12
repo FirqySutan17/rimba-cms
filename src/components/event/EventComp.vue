@@ -269,9 +269,7 @@
               v-for="link in pagination.links"
               :key="link.id"
             >
-              <a
-                v-if="link.label.includes('Previous')"
-              >
+              <a v-if="link.label.includes('Previous')">
                 <span style="color: lightseagreen !important">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -388,7 +386,7 @@ export default {
       return result;
     },
     async refreshEvent(page) {
-      const getResponse = await getContent("event?page="+page);
+      const getResponse = await getContent("event?page=" + page);
       if (getResponse.status == 200) {
         this.events = getResponse.data.data.data;
         this.visible = [];
