@@ -1,6 +1,6 @@
 <template>
   <HeaderComp />
-  <CareerDetailComp />
+  <CareerDetailComp :id="careerId" />
 
   <FooterComp />
 </template>
@@ -18,5 +18,11 @@ export default {
     CareerDetailComp,
     FooterComp,
   },
+  data() {
+    return {
+      careerId: this.$route.params.id
+    }
+  },
+  props:['id'],
 };
 </script>

@@ -1,19 +1,19 @@
 <template>
-  <div class="wrapper-details">
+  <div class="wrapper-details" v-if="portfolio != null">
     <div class="head-porto">
       <div class="container">
         <div class="head-inside">
           <div class="boxie">
             <img
-              src="@/assets/images/portofolio/depo-icon.png"
-              alt=""
+              :src="media + portfolio.logo"
+              :alt="portfolio.alt_text_logo"
               class="porto-client"
             />
           </div>
           <div class="boxie">
             <img
-              src="@/assets/images/portofolio/depo-cover.png"
-              alt=""
+              :src="media + portfolio.image_cover"
+              :alt="portfolio.alt_text_cover"
               class="porto-cover"
             />
           </div>
@@ -24,19 +24,7 @@
       <div class="body-porto">
         <div class="boxie">
           <h3>Description</h3>
-          <div class="porto-desc">
-            Depo Semut Paint Shop was established in 2018. Registered under the
-            name of PT. Semesta Mauna Utama and being under the auspices of the
-            Mauna Group is expected to further increase retail market
-            penetration in Sulawesi, especially South Sulawesi.
-            <br />
-            <br />
-            Depo Semut distinguishes itself from other traditional paint shops
-            by proposing the concept of the first Mini Modern Outlet Paint Shop
-            in Makassar at a key place on Jalan Veteran. Depo Semut is projected
-            to be a professional option for builders and contractors, as well as
-            the comfort of a shop equipped with a completely air-conditioned
-            space.
+          <div class="porto-desc" v-html="portfolio.description">
           </div>
         </div>
         <div class="boxie">
@@ -44,27 +32,25 @@
           <div class="project-box">
             <div class="spec-pro">
               <div class="label-name">Name</div>
-              <div class="label-ket">: &nbsp;Depo Semut</div>
+              <div class="label-ket">: &nbsp;{{ portfolio.name }}</div>
             </div>
             <div class="spec-pro">
               <div class="label-name">Company</div>
-              <div class="label-ket">: &nbsp;PT. Semesta Mauna Utama</div>
+              <div class="label-ket">: &nbsp;{{ portfolio.company }}</div>
             </div>
             <div class="spec-pro">
               <div class="label-name">Category</div>
-              <div class="label-ket">: &nbsp;Tree</div>
+              <div class="label-ket">: &nbsp;{{ portfolio.product_type }}</div>
             </div>
             <div class="spec-pro">
               <div class="label-name">Type</div>
-              <div class="label-ket">: &nbsp;Company Website</div>
+              <div class="label-ket">: &nbsp;{{ portfolio.type.name }}</div>
             </div>
             <div class="spec-pro">
               <div class="label-name">Tech Stack</div>
               <div class="label-ket">
                 : &nbsp;
-                <img src="@/assets/images/portofolio/figma.png" alt="" />
-                <img src="@/assets/images/portofolio/javascript.png" alt="" />
-                <img src="@/assets/images/portofolio/vue.png" alt="" />
+                <img v-for="skill in portfolio.skills" :src="media + skill.image" alt="" />
               </div>
             </div>
           </div>
@@ -114,6 +100,7 @@
 </template>
 
 <script>
+import { getContent } from "@/api/rimba";
 import VueEasyLightbox from "vue-easy-lightbox";
 
 export default {
@@ -125,14 +112,9 @@ export default {
       imgs: "", // Img Url , string or Array of string
       visible: false,
       index: 0, // default: 0
-      imgs: [
-        "https://rimba.lifetime-studios.com/images/portofolio/hl-1.png",
-        "https://rimba.lifetime-studios.com/images/portofolio/hl-2.png",
-        "https://rimba.lifetime-studios.com/images/portofolio/hl-3.png",
-        "https://rimba.lifetime-studios.com/images/portofolio/hl-4.png",
-        "https://rimba.lifetime-studios.com/images/portofolio/hl-5.png",
-        "https://rimba.lifetime-studios.com/images/portofolio/hl-6.png",
-      ],
+      imgs: [],
+      portfolio: null,
+      media: process.env.VUE_APP_MEDIA_URL,
     };
   },
   methods: {
@@ -143,14 +125,26 @@ export default {
     handleHide() {
       this.visible = false;
     },
+    async refreshPortfolioDetail(){
+      const getResponse = await getContent('portfolio?id=' + this.id);
+      if(getResponse.status == 200){
+        this.portfolio = getResponse.data.data;
+        this.portfolio.images.map((image) => {
+          this.imgs.push(this.media+image.image);
+        })
+      }else{
+        console.log(getResponse);
+      }
+    }
+  },
+  created() {
+    this.refreshPortfolioDetail();
   },
   name: "DetailComp",
   props: {
     msg: String,
-  },
-  created() {
-    
-  },
+    id: String
+  }
 };
 </script>
 

@@ -1,16 +1,16 @@
 <template>
   <div class="wrapper-careerdetails">
-    <div class="container">
+    <div class="container" v-if="career != null">
       <div class="job-head">
         <div class="box">
-          <h2>UI/UX Designer</h2>
+          <h2>{{ career.name }}</h2>
           <div class="icon-list-detail">
             <i class="fa-solid fa-hourglass-end icon-rim"></i>
-            Full-time
+            {{ career.work_type }}
           </div>
           <div class="icon-list-detail">
             <i class="fa-solid fa-map-location-dot icon-rim"></i>
-            Jakarta, Indonesia
+            {{ career.locatione.name}}
           </div>
         </div>
         <div class="box">
@@ -25,7 +25,7 @@
       <div class="date-post">
         <div class="icon-date-post">
           <i class="fa-regular fa-clock icon-date"></i>
-          Posted 3 days ago
+          Posted {{ new Date(career.created_at).toLocaleString() }}
         </div>
       </div>
 
@@ -34,40 +34,11 @@
           <div class="req-box">
             <h2>Requirements</h2>
             <div class="requirement-box">
-              <div class="wrap-req">
+              <div class="wrap-req" v-for="requierment in career.reqdescription" :key="requierment.id">
                 <div class="boxie">
                   <img src="@/assets/images/career/rimba-point.png" alt="" />
                 </div>
-                <div class="boxie">Computer Science graduate</div>
-              </div>
-
-              <div class="wrap-req">
-                <div class="boxie">
-                  <img src="@/assets/images/career/rimba-point.png" alt="" />
-                </div>
-                <div class="boxie">
-                  Two-year experienced in the related field
-                </div>
-              </div>
-
-              <div class="wrap-req">
-                <div class="boxie">
-                  <img src="@/assets/images/career/rimba-point.png" alt="" />
-                </div>
-                <div class="boxie">
-                  Up-to-date knowledge of design software like Figma and Adobe
-                  XD
-                </div>
-              </div>
-
-              <div class="wrap-req">
-                <div class="boxie">
-                  <img src="@/assets/images/career/rimba-point.png" alt="" />
-                </div>
-                <div class="boxie">
-                  Team spirit; strong communication skills to collaborate with
-                  various stakeholders
-                </div>
+                <div class="boxie">{{ requierment.description }}</div>
               </div>
             </div>
           </div>
@@ -86,25 +57,11 @@
           <div class="ben-box">
             <h2>Benefits</h2>
             <div class="benefit-box">
-              <div class="wrap-ben">
+              <div class="wrap-ben" v-for="benefit in career.benefit" :key="benefit.id">
                 <div class="boxie">
-                  <img src="@/assets/images/career/time.png" alt="" />
+                  <img :src="media + benefit.image" :alt="benefit.alt_text" />
                 </div>
-                <div class="boxie">Flexible Work Hour</div>
-              </div>
-
-              <div class="wrap-ben">
-                <div class="boxie">
-                  <img src="@/assets/images/career/benefit.png" alt="" />
-                </div>
-                <div class="boxie">Holiday, Overtime, and other allowances</div>
-              </div>
-
-              <div class="wrap-ben">
-                <div class="boxie">
-                  <img src="@/assets/images/career/bpjs.png" alt="" />
-                </div>
-                <div class="boxie">BPJS Kesehatan & Ketenagakerjaan</div>
+                <div class="boxie">{{ benefit.name }}</div>
               </div>
             </div>
           </div>
@@ -112,50 +69,12 @@
           <div class="jd-box">
             <h2>Job Description</h2>
             <div class="requirement-box">
-              <div class="wrap-req">
+              <div class="wrap-req" v-for="job in career.jobdescription">
                 <div class="boxie">
                   <img src="@/assets/images/career/rimba-point.png" alt="" />
                 </div>
                 <div class="boxie">
-                  Gathering and evaluating user requirements, in collaboration
-                  with product managers and engineers
-                </div>
-              </div>
-
-              <div class="wrap-req">
-                <div class="boxie">
-                  <img src="@/assets/images/career/rimba-point.png" alt="" />
-                </div>
-                <div class="boxie">Identify and troubleshoot UX problems</div>
-              </div>
-
-              <div class="wrap-req">
-                <div class="boxie">
-                  <img src="@/assets/images/career/rimba-point.png" alt="" />
-                </div>
-                <div class="boxie">
-                  Designing graphic user interface elements, like menus, tabs
-                  and widgets
-                </div>
-              </div>
-
-              <div class="wrap-req">
-                <div class="boxie">
-                  <img src="@/assets/images/career/rimba-point.png" alt="" />
-                </div>
-                <div class="boxie">
-                  Develop UI mockups and prototypes that clearly illustrate how
-                  sites function and look like
-                </div>
-              </div>
-
-              <div class="wrap-req">
-                <div class="boxie">
-                  <img src="@/assets/images/career/rimba-point.png" alt="" />
-                </div>
-                <div class="boxie">
-                  llustrating design ideas using storyboards, process flows and
-                  sitemaps
+                  {{ job.description }}
                 </div>
               </div>
             </div>
@@ -165,85 +84,22 @@
         <div class="boxie-job">
           <h2>Other Vacancy</h2>
           <div class="wrap-other">
-            <div class="box-other">
-              <h3>Software Engineer</h3>
+            <div class="box-other" v-for="job in otherVacancy" :key="job.id">
+              <h3>{{ job.name }}</h3>
               <div class="icon-list">
                 <i class="fa-solid fa-hourglass-end icon-rim"></i>
-                Full-time
+                {{ job.work_type }}
               </div>
               <div class="icon-list" style="margin-bottom: 20px">
                 <i class="fa-solid fa-map-location-dot icon-rim"></i>
-                Jakarta, Indonesia
+                {{ job.locatione.name }}
               </div>
 
-              <router-link to="/career/detail" class="btn-details">
+              <router-link :to="{name: 'career-detail', params:{id: job.id}}" class="btn-details">
                 See details
               </router-link>
             </div>
 
-            <div class="box-other">
-              <h3>DevOps</h3>
-              <div class="icon-list">
-                <i class="fa-solid fa-hourglass-end icon-rim"></i>
-                Full-time
-              </div>
-              <div class="icon-list" style="margin-bottom: 20px">
-                <i class="fa-solid fa-map-location-dot icon-rim"></i>
-                Tangerang, Indonesia
-              </div>
-
-              <router-link to="/career/detail" class="btn-details">
-                See details
-              </router-link>
-            </div>
-
-            <div class="box-other">
-              <h3>QA Engineer</h3>
-              <div class="icon-list">
-                <i class="fa-solid fa-hourglass-end icon-rim"></i>
-                Full-time
-              </div>
-              <div class="icon-list" style="margin-bottom: 20px">
-                <i class="fa-solid fa-map-location-dot icon-rim"></i>
-                Tangerang, Indonesia
-              </div>
-
-              <router-link to="/career/detail" class="btn-details">
-                See details
-              </router-link>
-            </div>
-
-            <div class="box-other">
-              <h3>Project Manager</h3>
-              <div class="icon-list">
-                <i class="fa-solid fa-hourglass-end icon-rim"></i>
-                Full-time
-              </div>
-              <div class="icon-list" style="margin-bottom: 20px">
-                <i class="fa-solid fa-map-location-dot icon-rim"></i>
-                Tangerang, Indonesia
-              </div>
-
-              <router-link to="/career/detail" class="btn-details">
-                See details
-              </router-link>
-            </div>
-
-            <div class="box-other">
-              <h3>Social Media Specialist</h3>
-              <div class="icon-list">
-                <i class="fa-solid fa-hourglass-end icon-rim"></i>
-                Full-time
-              </div>
-              <div class="icon-list" style="margin-bottom: 20px">
-                <i class="fa-solid fa-map-location-dot icon-rim"></i>
-                Tangerang, Indonesia
-              </div>
-
-              <router-link to="/career/detail" class="btn-details">
-                See details
-              </router-link>
-            </div>
           </div>
         </div>
       </div>
@@ -254,17 +110,43 @@
 
 <script>
 import ModalForm from "./modal/ModalForm.vue";
+import { getContent } from "@/api/rimba";
 
 export default {
   components: { ModalForm },
   name: "DetailComp",
   props: {
     msg: String,
+    id: String,
   },
   data() {
     return {
       showModal: false,
+      career:null,
+      media: process.env.VUE_APP_MEDIA_URL,
+      otherVacancy: []
     };
+  },methods: {
+    async refreshCareerDetail(){
+      const getResponse = await getContent('career?id='+this.id);
+      if(getResponse.status == 200){
+        this.career = getResponse.data.data;
+      }else{
+        console.log(getResponse);
+      }
+    },
+    async refreshOtherVacancy(){
+      const getResponse = await getContent('career');
+      if(getResponse.status == 200){
+        this.otherVacancy = getResponse.data.data.data;
+      }else{
+        console.log(getResponse);
+      }
+    }
+  },
+  created() {
+    this.refreshCareerDetail();
+    this.refreshOtherVacancy();
   },
 };
 </script>
