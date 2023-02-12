@@ -31,7 +31,7 @@
                     class="option"
                     v-for="location in locations"
                     :key="location.id"
-                    @click="setLocation(location.name)"
+                    @click="setLocation(location.name, location.id)"
                   >
                     <span class="option-text">{{ location.name }}</span>
                   </li>
@@ -234,10 +234,11 @@ export default {
         console.log(getResponse);
       }
     },
-    setLocation(name) {
+    setLocation(name, id) {
       this.selectedLocation = name;
       const optionMenu = document.querySelector(".select-menu");
       optionMenu.classList.remove("active");
+      this.refreshCareer('career?location=' + id);
     },
     paginationClass(url, isActive) {
       let classes = "";
