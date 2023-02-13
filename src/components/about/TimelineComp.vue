@@ -15,7 +15,7 @@
           <div class="journey-carousel">
             <div class="box" v-for="journey in allJourney" :key="journey.id">
               <div class="timeline-marker">
-                <span class="year-number">{{journey.start_year}}</span>
+                <span class="year-number">{{ journey.start_year }}</span>
               </div>
               <div class="bigBox">
                 <div class="boxie">
@@ -40,9 +40,7 @@
               <img :src="media + member.image" :alt="member.alt_text" />
               <h2>{{ member.name }}</h2>
               <p class="role-user">{{ member.position }}</p>
-              <div class="role-quotes" v-html="member.description">
-
-              </div>
+              <div class="role-quotes" v-html="member.description"></div>
             </div>
           </div>
         </div>
@@ -52,7 +50,7 @@
 </template>
 
 <script>
-import {getContent} from "@/api/rimba";
+import { getContent } from "@/api/rimba";
 export default {
   name: "TimelineComp",
   props: {
@@ -60,28 +58,28 @@ export default {
   },
   data() {
     return {
-      allJourney:[],
-      team:[],
-      media: process.env.VUE_APP_MEDIA_URL
-    }
+      allJourney: [],
+      team: [],
+      media: process.env.VUE_APP_MEDIA_URL,
+    };
   },
   methods: {
-    async refreshJourney(){
+    async refreshJourney() {
       const getResponse = await getContent("journey");
-      if(getResponse.status == 200){
+      if (getResponse.status == 200) {
         this.allJourney = getResponse.data.data;
-      }else{
+      } else {
         console.log(getResponse);
       }
     },
-    async refreshTeam(){
+    async refreshTeam() {
       const getResponse = await getContent("team");
-      if(getResponse.status == 200){
+      if (getResponse.status == 200) {
         this.team = getResponse.data.data;
-      }else{
+      } else {
         console.log(getResponse);
       }
-    }
+    },
   },
   mounted() {
     this.refreshJourney();
@@ -182,7 +180,7 @@ export default {
 .year-number {
   position: absolute;
   top: 18.2px;
-  left: 10.2px;
+  left: 8.2px;
   color: #fff;
   z-index: 10;
 }
@@ -472,7 +470,7 @@ export default {
     height: 155vh;
   }
   .team-carousel {
-    height: 147vh;
+    height: 155vh;
   }
 }
 @media (max-width: 1440px) {

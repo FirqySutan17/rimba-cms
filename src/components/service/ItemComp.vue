@@ -1,7 +1,12 @@
 <template>
   <div class="wrapper-item">
     <div class="container">
-      <div class="box-item" v-for="product in products" :key="product.id" :style="{backgroundColor: product.card_color}">
+      <div
+        class="box-item"
+        v-for="product in products"
+        :key="product.id"
+        :style="{ backgroundColor: product.card_color }"
+      >
         <div class="box">
           <img :src="media + product.image" :alt="product.alt_text" />
         </div>
@@ -11,12 +16,18 @@
             <img
               src="@/assets/images/best-product.png"
               class="label-product"
-              alt="" v-if="product.label == 1"
+              alt=""
+              v-if="product.label == 1"
             />
           </div>
 
           <div v-html="product.description"></div>
-          <a href="#" class="btn-oaktree" :style="{backgroundColor: product.button_color}">Request a demo</a>
+          <a
+            href="#"
+            class="btn-oaktree"
+            :style="{ backgroundColor: product.button_color }"
+            >Request a demo</a
+          >
         </div>
       </div>
     </div>
@@ -24,7 +35,7 @@
 </template>
 
 <script>
-import { getContent } from '@/api/rimba';
+import { getContent } from "@/api/rimba";
 export default {
   name: "ItemComp",
   props: {
@@ -33,18 +44,18 @@ export default {
   data() {
     return {
       products: [],
-      media: process.env.VUE_APP_MEDIA_URL
-    }
+      media: process.env.VUE_APP_MEDIA_URL,
+    };
   },
   methods: {
-    async refreshProducts(){
+    async refreshProducts() {
       const getResponse = await getContent("product");
-      if(getResponse.status === 200){
+      if (getResponse.status === 200) {
         this.products = getResponse.data.data;
-      }else{
+      } else {
         console.log(getResponse);
       }
-    }
+    },
   },
   mounted() {
     this.refreshProducts();
@@ -101,7 +112,7 @@ export default {
 }
 .box-item .box a {
   background: #27b07d;
-  border: 1px solid #27b07d;
+  border: 1px solid transparent;
   border-radius: 40px;
   padding: 10px 30px;
   font-weight: 600;
@@ -117,11 +128,12 @@ export default {
 }
 .box-item .box a.btn-pinetree {
   background: #197bb8;
-  border: 1px solid #197bb8;
+  border: 1px solid transparent;
 }
 .box-item .box a.btn-oaktree:hover {
-  background: transparent;
-  color: #fff;
+  background: transparent !important;
+  border: 1px solid #fff !important;
+  color: #fff !important;
   transition: all 0.5s ease;
 }
 .box-item .box a.btn-bambootree:hover {

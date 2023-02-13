@@ -31,12 +31,42 @@
                 />
                 <p class="select-box__input-text">Choose year</p>
               </div>
-              <div class="select-box__value" @click="filterbyYear(2020)">
+              <div class="select-box__value" @click="filterbyYear(2017)">
+                <input
+                  class="select-box__input"
+                  type="radio"
+                  id="0"
+                  value="1"
+                  name="Ben"
+                />
+                <p class="select-box__input-text">2017</p>
+              </div>
+              <div class="select-box__value" @click="filterbyYear(2018)">
                 <input
                   class="select-box__input"
                   type="radio"
                   id="1"
                   value="2"
+                  name="Ben"
+                />
+                <p class="select-box__input-text">2018</p>
+              </div>
+              <div class="select-box__value" @click="filterbyYear(2019)">
+                <input
+                  class="select-box__input"
+                  type="radio"
+                  id="2"
+                  value="3"
+                  name="Ben"
+                />
+                <p class="select-box__input-text">2019</p>
+              </div>
+              <div class="select-box__value" @click="filterbyYear(2020)">
+                <input
+                  class="select-box__input"
+                  type="radio"
+                  id="3"
+                  value="4"
                   name="Ben"
                 />
                 <p class="select-box__input-text">2020</p>
@@ -45,8 +75,8 @@
                 <input
                   class="select-box__input"
                   type="radio"
-                  id="2"
-                  value="3"
+                  id="4"
+                  value="5"
                   name="Ben"
                 />
                 <p class="select-box__input-text">2021</p>
@@ -55,8 +85,8 @@
                 <input
                   class="select-box__input"
                   type="radio"
-                  id="3"
-                  value="4"
+                  id="5"
+                  value="6"
                   name="Ben"
                 />
                 <p class="select-box__input-text">2022</p>
@@ -65,8 +95,8 @@
                 <input
                   class="select-box__input"
                   type="radio"
-                  id="4"
-                  value="5"
+                  id="6"
+                  value="7"
                   name="Ben"
                 />
                 <p class="select-box__input-text">2023</p>
@@ -90,9 +120,17 @@
               <li>
                 <label
                   class="select-box__option"
+                  for="0"
+                  aria-hidden="aria-hidden"
+                  >2017</label
+                >
+              </li>
+              <li>
+                <label
+                  class="select-box__option"
                   for="1"
                   aria-hidden="aria-hidden"
-                  >2020</label
+                  >2018</label
                 >
               </li>
               <li>
@@ -100,7 +138,7 @@
                   class="select-box__option"
                   for="2"
                   aria-hidden="aria-hidden"
-                  >2021</label
+                  >2019</label
                 >
               </li>
               <li>
@@ -108,13 +146,29 @@
                   class="select-box__option"
                   for="3"
                   aria-hidden="aria-hidden"
-                  >2022</label
+                  >2020</label
                 >
               </li>
               <li>
                 <label
                   class="select-box__option"
                   for="4"
+                  aria-hidden="aria-hidden"
+                  >2021</label
+                >
+              </li>
+              <li>
+                <label
+                  class="select-box__option"
+                  for="5"
+                  aria-hidden="aria-hidden"
+                  >2022</label
+                >
+              </li>
+              <li>
+                <label
+                  class="select-box__option"
+                  for="6"
                   aria-hidden="aria-hidden"
                   >2023</label
                 >
@@ -158,7 +212,6 @@
               ></vue-easy-lightbox>
             </div>
           </div>
-
         </div>
 
         <div class="page-box">
@@ -286,11 +339,11 @@ export default {
       console.log(result);
       return result;
     },
-    filterbyYear(year){
+    filterbyYear(year) {
       console.log(year);
-      if(year != null){
+      if (year != null) {
         this.refreshEvent("event?date=" + year);
-      }else{
+      } else {
         this.refreshEvent("event");
       }
     },
@@ -309,14 +362,14 @@ export default {
         console.log(getResponse);
       }
     },
-    paginationClick(url){
-      if(url != null){
+    paginationClick(url) {
+      if (url != null) {
         const splitResult = url.split("/");
         splitResult.map((item) => {
-          if(item.includes("event")){
+          if (item.includes("event")) {
             this.refreshEvent(item);
           }
-        })
+        });
       }
     },
     paginationClass(url, isActive) {
@@ -335,7 +388,7 @@ export default {
     msg: String,
   },
   created() {
-    this.refreshEvent('event');
+    this.refreshEvent("event");
   },
 };
 </script>

@@ -10,7 +10,7 @@
       <!-- Set up your HTML -->
       <flickity class="flickity" ref="flickity" :options="flickityOptions">
         <div class="carousel-cell" v-for="item in portfolio" :key="item.id">
-          <img :src="media + item.image_cover" :alt="item.alt_text_cover" />
+          <img :src="media + item.logo" :alt="item.alt_text_logo" />
         </div>
       </flickity>
     </div>

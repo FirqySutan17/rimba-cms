@@ -90,9 +90,10 @@
         <div class="box-content-second" v-if="product.length > 0">
           <div class="box">
             <h2>{{ product[0].name }}</h2>
-            <div v-html="product[0].description">
-            </div>
-            <a href="#" :style="{backgroundColor: product[0].button_color}">Visit Pinetree</a>
+            <div v-html="product[0].description"></div>
+            <a href="#" :style="{ backgroundColor: product[0].button_color }"
+              >Visit Pinetree</a
+            >
           </div>
           <div class="box">
             <img :src="media + product[0].image" :alt="product[0].alt_text" />
@@ -103,7 +104,9 @@
           <div class="box">
             <h2>{{ product[2].name }}</h2>
             <div v-html="product[2].description"></div>
-            <a href="#" :style="{backgroundColor: product[2].button_color}">Visit Oak Tree</a>
+            <a href="#" :style="{ backgroundColor: product[2].button_color }"
+              >Visit Oak Tree</a
+            >
           </div>
           <div class="box">
             <img :src="media + product[2].image" :alt="product[2].alt_text" />
@@ -144,7 +147,9 @@
           <div class="box">
             <h2>{{ product[1].name }}</h2>
             <div v-html="product[1].description"></div>
-            <a href="#" :style="{backgroundColor: product[1].button_color}">Visit Bambootree</a>
+            <a href="#" :style="{ backgroundColor: product[1].button_color }"
+              >Visit Bambootree</a
+            >
           </div>
           <div class="box">
             <img :src="media + product[1].image" :alt="product[1].alt_text" />
@@ -160,11 +165,13 @@
           <div class="box" v-if="product.length > 0">
             <div class="boxie">
               <h3>{{ product[2].name }}</h3>
-              <div v-html="product[2].description">
-
-              </div>
+              <div v-html="product[2].description"></div>
               <div class="link-visit">
-                <a href="#" :style="{backgroundColor: product[2].button_color}">Visit Oak Tree</a>
+                <a
+                  href="#"
+                  :style="{ backgroundColor: product[2].button_color }"
+                  >Visit Oak Tree</a
+                >
                 <div class="best-product" v-if="product[2].label == 1"></div>
               </div>
             </div>
@@ -182,7 +189,11 @@
               <div v-html="product[1].description"></div>
 
               <div class="link-visit">
-                <a href="#" :style="{backgroundColor: product[1].button_color}">Visit BambooTree</a>
+                <a
+                  href="#"
+                  :style="{ backgroundColor: product[1].button_color }"
+                  >Visit BambooTree</a
+                >
                 <div class="best-product" v-if="product[1].label == 1"></div>
               </div>
             </div>
@@ -199,7 +210,11 @@
               <h3>{{ product[0].name }}</h3>
               <div v-html="product[0].description"></div>
               <div class="link-visit">
-                <a href="#" :style="{backgroundColor: product[0].button_color}">Visit Pinetree</a>
+                <a
+                  href="#"
+                  :style="{ backgroundColor: product[0].button_color }"
+                  >Visit Pinetree</a
+                >
                 <div class="best-product" v-if="product[1].label == 1"></div>
               </div>
             </div>
@@ -261,19 +276,19 @@ export default {
   },
   data() {
     return {
-      product:[],
-      media: process.env.VUE_APP_MEDIA_URL
-    }
+      product: [],
+      media: process.env.VUE_APP_MEDIA_URL,
+    };
   },
   methods: {
-    async refreshProduct(){
-      const getResponse = await getContent('product');
-      if(getResponse.status == 200){
+    async refreshProduct() {
+      const getResponse = await getContent("product");
+      if (getResponse.status == 200) {
         this.product = getResponse.data.data;
-      }else{
+      } else {
         console.log(getResponse);
       }
-    }
+    },
   },
   created() {
     this.refreshProduct();
@@ -663,9 +678,9 @@ input[type="checkbox"] {
   transition: all 0.5s ease;
 }
 .box-content-second .box a:hover {
-  background: transparent;
-  border: 1px solid #207fa8;
-  color: #207fa8;
+  background: transparent !important;
+  border: 1px solid #000;
+  color: #000;
   transition: all 0.5s ease;
 }
 .trees-secondc.boxService.expanded ~ .box-content-second {
@@ -750,7 +765,7 @@ input[type="checkbox"] {
 }
 .box-content-four .box a {
   background: #146188;
-  border: 1px solid #146188;
+  border: 1px solid transparent;
   box-shadow: 10px 10px 40px rgba(20, 97, 136, 0.2);
   border-radius: 100px;
   font-style: normal;
@@ -763,8 +778,9 @@ input[type="checkbox"] {
   transition: all 0.5s ease;
 }
 .box-content-four .box a:hover {
-  background: transparent;
-  color: #146188;
+  background: transparent !important;
+  border: 1px solid #000;
+  color: #000;
   transition: all 0.5s ease;
 }
 .trees-fourthc.boxService.expanded ~ .box-content-four {
@@ -1006,7 +1022,7 @@ input[type="checkbox"] {
 }
 .box-content-seven .box a {
   background: #ffcd00;
-  border: 1px solid #ffcd00;
+  border: 1px solid transparent;
   box-shadow: 10px 10px 40px rgba(255, 205, 0, 0.2);
   border-radius: 100px;
   font-style: normal;
@@ -1019,8 +1035,9 @@ input[type="checkbox"] {
   transition: all 0.5s ease;
 }
 .box-content-seven .box a:hover {
-  background: transparent;
-  color: #ffcd00;
+  background: transparent !important;
+  border: 1px solid #000 !important;
+  color: #000;
   transition: all 0.5s ease;
 }
 .trees-seventhc.boxService.expanded ~ .box-content-seven {

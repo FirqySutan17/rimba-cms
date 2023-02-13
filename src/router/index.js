@@ -4,6 +4,7 @@ import AboutView from "../views/AboutView.vue";
 import ServiceView from "../views/ServiceView.vue";
 import PortfolioView from "../views/PortfolioView.vue";
 import EventView from "../views/EventView.vue";
+import GalleryView from "../views/GalleryView.vue";
 import CareerView from "../views/CareerView.vue";
 import CareerDetailView from "../views/CareerDetailView.vue";
 import BlogView from "../views/BlogView.vue";
@@ -35,12 +36,17 @@ const routes = [
     path: "/portfolio/detail/:id",
     name: "portfolio-detail",
     component: PortfolioDetailView,
-    props: true
+    props: true,
   },
   {
     path: "/events",
     name: "event",
     component: EventView,
+  },
+  {
+    path: "/galleries",
+    name: "gallery",
+    component: GalleryView,
   },
   {
     path: "/career",
@@ -52,8 +58,8 @@ const routes = [
     name: "career-detail",
     component: CareerDetailView,
     props: {
-      default: true
-    }
+      default: true,
+    },
   },
   {
     path: "/blog",
@@ -72,7 +78,7 @@ const router = createRouter({
   routes,
   scrollBehavior(to, from, savedPosition) {
     // always scroll to top
-    return { top: 0 }
+    return { top: 0 };
   },
 });
 

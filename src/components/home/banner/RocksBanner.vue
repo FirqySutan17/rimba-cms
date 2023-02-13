@@ -25,7 +25,6 @@
                     We supplies several sorts of laptops based on your company's
                     requirements.
                   </p>
-                  
                 </div>
 
                 <div class="rocks-desc computer-rock">
@@ -40,7 +39,6 @@
                     We provide a variety of personal computers based on your
                     company's needs.
                   </p>
-                  
                 </div>
 
                 <div class="rocks-desc cctv-rock">
@@ -55,7 +53,6 @@
                     Keep an eye on the surroundings to stay safe and under
                     control
                   </p>
-                  
                 </div>
 
                 <div class="rocks-desc server-rock">
@@ -70,14 +67,13 @@
                     Only for you, RIMBA offers several types of economical
                     servers with high performance quality
                   </p>
-                  
                 </div>
               </div>
             </div>
             <div class="boxie">
               <div class="rocks-img">
                 <img
-                  src="@/assets/images/rocks/rocks.png"
+                  src="@/assets/images/img-stone.png"
                   alt=""
                   class="main-rocks"
                 />

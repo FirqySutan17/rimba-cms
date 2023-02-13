@@ -12,12 +12,15 @@
           <span class="sub-title">Type: {{ porto.type.name }}</span>
         </div>
         <div class="boxie">
-          <router-link :to="{name: 'portfolio-detail', params:{id: porto.id}}" class="btn-more">
+          <router-link
+            :to="{ name: 'portfolio-detail', params: { id: porto.id } }"
+            class="btn-more"
+          >
             See Project Details
           </router-link>
         </div>
       </div>
-      <div v-html="porto.description"></div>
+      <div class="desc-porto" v-html="porto.description"></div>
     </div>
   </section>
 </template>
@@ -93,7 +96,7 @@ export default {
   background: transparent;
   transition: all 0.5s ease;
 }
-.porto-content p {
+.porto-content .desc-porto {
   font-weight: 400;
   font-size: 16px;
   color: #8e8e8e;

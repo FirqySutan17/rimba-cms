@@ -18,7 +18,7 @@
           </router-link>
         </div>
       </div>
-      <div v-html="porto.description"></div>
+      <div class="desc-porto" v-html="porto.description"></div>
     </div>
   </section>
 </template>

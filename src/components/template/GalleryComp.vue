@@ -1,12 +1,25 @@
 <template>
   <div class="wrapper-gallery">
     <div class="container">
-      <div class="title-wrap">
+      <div class="head-box">
+        <img src="@/assets/images/cloud-1.png" alt="" class="cloud-1" />
+        <img src="@/assets/images/cloud-2.png" alt="" class="cloud-2" />
+        <img src="@/assets/images/cloud-3.png" alt="" class="cloud-3" />
+        <img src="@/assets/images/pattern-1.png" alt="" class="pattern-1" />
+        <img src="@/assets/images/pattern-2.png" alt="" class="pattern-2" />
+
+        <div class="text-box">
+          <h2>Gallery</h2>
+          <p>Activity in Rimba House</p>
+        </div>
+      </div>
+
+      <!-- <div class="title-wrap">
         <h2 style="color: #052e40">Gallery</h2>
         <div class="circle-title-gallery"></div>
         <p style="color: #052e40">Activity in Rimbahouse</p>
-      </div>
-      <div class="body-gallery">
+      </div> -->
+      <div class="body-gallery" style="margin-top: 50px">
         <div class="filter-year">
           <div class="select-box">
             <div class="select-box__current" tabindex="1">
@@ -29,34 +42,14 @@
                   value="1"
                   name="Ben"
                 />
-                <p class="select-box__input-text">2017</p>
-              </div>
-              <div class="select-box__value">
-                <input
-                  class="select-box__input"
-                  type="radio"
-                  id="1"
-                  value="3"
-                  name="Ben"
-                />
-                <p class="select-box__input-text">2018</p>
-              </div>
-              <div class="select-box__value">
-                <input
-                  class="select-box__input"
-                  type="radio"
-                  id="2"
-                  value="5"
-                  name="Ben"
-                />
                 <p class="select-box__input-text">2019</p>
               </div>
               <div class="select-box__value">
                 <input
                   class="select-box__input"
                   type="radio"
-                  id="3"
-                  value="7"
+                  id="1"
+                  value="2"
                   name="Ben"
                 />
                 <p class="select-box__input-text">2020</p>
@@ -65,8 +58,8 @@
                 <input
                   class="select-box__input"
                   type="radio"
-                  id="4"
-                  value="9"
+                  id="2"
+                  value="3"
                   name="Ben"
                 />
                 <p class="select-box__input-text">2021</p>
@@ -75,8 +68,8 @@
                 <input
                   class="select-box__input"
                   type="radio"
-                  id="5"
-                  value="11"
+                  id="3"
+                  value="4"
                   name="Ben"
                 />
                 <p class="select-box__input-text">2022</p>
@@ -85,8 +78,8 @@
                 <input
                   class="select-box__input"
                   type="radio"
-                  id="12"
-                  value="13"
+                  id="4"
+                  value="5"
                   name="Ben"
                 />
                 <p class="select-box__input-text">2023</p>
@@ -113,24 +106,6 @@
                   class="select-box__option"
                   for="0"
                   aria-hidden="aria-hidden"
-                  @click="filterImage('2017')"
-                  >2017</label
-                >
-              </li>
-              <li>
-                <label
-                  class="select-box__option"
-                  for="1"
-                  aria-hidden="aria-hidden"
-                  @click="filterImage('2018')"
-                  >2018</label
-                >
-              </li>
-              <li>
-                <label
-                  class="select-box__option"
-                  for="2"
-                  aria-hidden="aria-hidden"
                   @click="filterImage('2019')"
                   >2019</label
                 >
@@ -138,7 +113,7 @@
               <li>
                 <label
                   class="select-box__option"
-                  for="3"
+                  for="1"
                   aria-hidden="aria-hidden"
                   @click="filterImage('2020')"
                   >2020</label
@@ -147,7 +122,7 @@
               <li>
                 <label
                   class="select-box__option"
-                  for="4"
+                  for="2"
                   aria-hidden="aria-hidden"
                   @click="filterImage('2021')"
                   >2021</label
@@ -156,7 +131,7 @@
               <li>
                 <label
                   class="select-box__option"
-                  for="5"
+                  for="3"
                   aria-hidden="aria-hidden"
                   @click="filterImage('2022')"
                   >2022</label
@@ -165,7 +140,7 @@
               <li>
                 <label
                   class="select-box__option"
-                  for="6"
+                  for="4"
                   aria-hidden="aria-hidden"
                   @click="filterImage('2023')"
                   >2023</label
@@ -192,11 +167,6 @@
             @hide="handleHide"
           ></vue-easy-lightbox>
         </div>
-      </div>
-
-      <div class="wrapper-btn">
-        <router-link to="/galleries">View All</router-link>
-        <!-- <a href="/galleries">View All</a> -->
       </div>
     </div>
   </div>

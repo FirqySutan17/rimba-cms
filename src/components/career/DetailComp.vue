@@ -10,7 +10,7 @@
           </div>
           <div class="icon-list-detail">
             <i class="fa-solid fa-map-location-dot icon-rim"></i>
-            {{ career.locatione.name}}
+            {{ career.locatione.name }}
           </div>
         </div>
         <div class="box">
@@ -34,7 +34,11 @@
           <div class="req-box">
             <h2>Requirements</h2>
             <div class="requirement-box">
-              <div class="wrap-req" v-for="requierment in career.reqdescription" :key="requierment.id">
+              <div
+                class="wrap-req"
+                v-for="requierment in career.reqdescription"
+                :key="requierment.id"
+              >
                 <div class="boxie">
                   <img src="@/assets/images/career/rimba-point.png" alt="" />
                 </div>
@@ -46,14 +50,20 @@
           <div class="man-box">
             <h2>Mandatory Skills</h2>
             <div class="mandatory-box">
-              <span v-for="skill in career.skills" :key="skill.id">{{ skill.name }}</span>
+              <span v-for="skill in career.skills" :key="skill.id">{{
+                skill.name
+              }}</span>
             </div>
           </div>
 
           <div class="ben-box">
             <h2>Benefits</h2>
             <div class="benefit-box">
-              <div class="wrap-ben" v-for="benefit in career.benefit" :key="benefit.id">
+              <div
+                class="wrap-ben"
+                v-for="benefit in career.benefit"
+                :key="benefit.id"
+              >
                 <div class="boxie">
                   <img :src="media + benefit.image" :alt="benefit.alt_text" />
                 </div>
@@ -91,11 +101,13 @@
                 {{ job.locatione.name }}
               </div>
 
-              <router-link :to="{name: 'career-detail', params:{id: job.id}}" class="btn-details">
+              <router-link
+                :to="{ name: 'career-detail', params: { id: job.id } }"
+                class="btn-details"
+              >
                 See details
               </router-link>
             </div>
-
           </div>
         </div>
       </div>
@@ -118,27 +130,28 @@ export default {
   data() {
     return {
       showModal: false,
-      career:null,
+      career: null,
       media: process.env.VUE_APP_MEDIA_URL,
-      otherVacancy: []
+      otherVacancy: [],
     };
-  },methods: {
-    async refreshCareerDetail(){
-      const getResponse = await getContent('career?id='+this.id);
-      if(getResponse.status == 200){
+  },
+  methods: {
+    async refreshCareerDetail() {
+      const getResponse = await getContent("career?id=" + this.id);
+      if (getResponse.status == 200) {
         this.career = getResponse.data.data;
-      }else{
+      } else {
         console.log(getResponse);
       }
     },
-    async refreshOtherVacancy(){
-      const getResponse = await getContent('career');
-      if(getResponse.status == 200){
+    async refreshOtherVacancy() {
+      const getResponse = await getContent("career");
+      if (getResponse.status == 200) {
         this.otherVacancy = getResponse.data.data.data;
-      }else{
+      } else {
         console.log(getResponse);
       }
-    }
+    },
   },
   created() {
     this.refreshCareerDetail();
@@ -339,6 +352,12 @@ export default {
 .ben-box {
   margin-bottom: 50px;
 }
+.benefit-box {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(8, 1fr);
+  column-gap: 20px;
+}
 .wrap-ben {
   display: flex;
   font-weight: 400;
@@ -347,9 +366,10 @@ export default {
   color: #444444;
   width: 100%;
   margin: 20px 0px;
+  grid-column: span 4;
 }
 .wrap-ben .boxie:nth-child(1) {
-  width: 6%;
+  width: 15%;
   margin: auto;
 }
 .wrap-ben .boxie:nth-child(2) {

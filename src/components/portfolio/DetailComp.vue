@@ -24,8 +24,7 @@
       <div class="body-porto">
         <div class="boxie">
           <h3>Description</h3>
-          <div class="porto-desc" v-html="portfolio.description">
-          </div>
+          <div class="porto-desc" v-html="portfolio.description"></div>
         </div>
         <div class="boxie">
           <h3 style="text-align: center">Project Information</h3>
@@ -49,12 +48,16 @@
             <div class="spec-pro">
               <div class="label-name">Tech Stack</div>
               <div class="label-ket">
-                : &nbsp;
-                <img v-for="skill in portfolio.skills" :src="media + skill.image" alt="" />
+                &nbsp;
+                <img
+                  v-for="skill in portfolio.skills"
+                  :src="media + skill.image"
+                  alt=""
+                />
               </div>
             </div>
           </div>
-          <a href="" class="btn-visit">Visit</a>
+          <a href="{{ portfolio.link }}" class="btn-visit">Visit</a>
         </div>
         <div class="boxie">
           <h3>Highlights</h3>
@@ -125,17 +128,17 @@ export default {
     handleHide() {
       this.visible = false;
     },
-    async refreshPortfolioDetail(){
-      const getResponse = await getContent('portfolio?id=' + this.id);
-      if(getResponse.status == 200){
+    async refreshPortfolioDetail() {
+      const getResponse = await getContent("portfolio?id=" + this.id);
+      if (getResponse.status == 200) {
         this.portfolio = getResponse.data.data;
         this.portfolio.images.map((image) => {
-          this.imgs.push(this.media+image.image);
-        })
-      }else{
+          this.imgs.push(this.media + image.image);
+        });
+      } else {
         console.log(getResponse);
       }
-    }
+    },
   },
   created() {
     this.refreshPortfolioDetail();
@@ -143,8 +146,8 @@ export default {
   name: "DetailComp",
   props: {
     msg: String,
-    id: String
-  }
+    id: String,
+  },
 };
 </script>
 
