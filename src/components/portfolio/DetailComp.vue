@@ -57,7 +57,7 @@
               </div>
             </div>
           </div>
-          <a href="{{ portfolio.link }}" class="btn-visit">Visit</a>
+          <a :href="portfolio.link" class="btn-visit">Visit</a>
         </div>
         <div class="boxie">
           <h3>Highlights</h3>
@@ -129,7 +129,7 @@ export default {
       this.visible = false;
     },
     async refreshPortfolioDetail() {
-      const getResponse = await getContent("portfolio?id=" + this.id);
+      const getResponse = await getContent("portfolio/" + this.slug);
       if (getResponse.status == 200) {
         this.portfolio = getResponse.data.data;
         this.portfolio.images.map((image) => {
@@ -146,7 +146,7 @@ export default {
   name: "DetailComp",
   props: {
     msg: String,
-    id: String,
+    slug: String,
   },
 };
 </script>

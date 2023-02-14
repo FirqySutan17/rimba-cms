@@ -1,6 +1,6 @@
 <template>
   <HeaderComp />
-  <PortfolioDetailComp :id="portfolioId" />
+  <PortfolioDetailComp :slug="portfolioId" />
   <ContactComp />
   <FooterComp />
 </template>
@@ -22,10 +22,10 @@ export default {
   },mounted(){
     console.log(this.$route.params);
   },
-  props:['id'],
+  props:['slug'],
   data() {
     return {
-      portfolioId: this.$route.params.id
+      portfolioId: this.$route.params.slug
     }
   },
 };

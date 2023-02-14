@@ -125,7 +125,7 @@ export default {
   name: "DetailComp",
   props: {
     msg: String,
-    id: String,
+    slug: String,
   },
   data() {
     return {
@@ -137,7 +137,7 @@ export default {
   },
   methods: {
     async refreshCareerDetail() {
-      const getResponse = await getContent("career?id=" + this.id);
+      const getResponse = await getContent("career/" + this.slug);
       if (getResponse.status == 200) {
         this.career = getResponse.data.data;
       } else {

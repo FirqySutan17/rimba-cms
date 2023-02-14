@@ -33,7 +33,7 @@ const routes = [
     component: PortfolioView,
   },
   {
-    path: "/portfolio/detail/:id",
+    path: "/portfolio/detail/:slug",
     name: "portfolio-detail",
     component: PortfolioDetailView,
     props: true,
@@ -54,7 +54,7 @@ const routes = [
     component: CareerView,
   },
   {
-    path: "/career/detail/:id",
+    path: "/career/detail/:slug",
     name: "career-detail",
     component: CareerDetailView,
     props: {

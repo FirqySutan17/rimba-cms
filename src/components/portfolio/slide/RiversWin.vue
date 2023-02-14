@@ -13,7 +13,7 @@
         </div>
         <div class="boxie">
           <router-link
-            :to="{ name: 'portfolio-detail', params: { id: porto.id } }"
+            :to="{ name: 'portfolio-detail', params: { slug: porto.slug } }"
             class="btn-more"
           >
             See Project Details

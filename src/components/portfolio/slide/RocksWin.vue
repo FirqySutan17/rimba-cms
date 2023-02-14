@@ -13,7 +13,7 @@
         </div>
         <div class="boxie">
           <!-- <button class="btn-more" @click="showDetail(porto)"> See Projects Details </button> -->
-          <router-link :to="{name: 'portfolio-detail', params:{id: porto.id}}" class="btn-more">
+          <router-link :to="{name: 'portfolio-detail', params:{slug: porto.slug}}" class="btn-more">
             See Project Details
           </router-link>
         </div>

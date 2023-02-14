@@ -231,7 +231,7 @@ export default {
     async refreshImage() {
       const getResponse = await getContent("gallery");
       if (getResponse.status == 200) {
-        this.imageData = getResponse.data.data;
+        this.imageData = getResponse.data.data.data;
         this.filteredImage = [];
         this.imageData.map((image) => {
           this.filteredImage.push(this.media + image.image);

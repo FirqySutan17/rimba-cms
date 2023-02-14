@@ -1,6 +1,6 @@
 <template>
   <HeaderComp />
-  <CareerDetailComp :id="careerId" />
+  <CareerDetailComp :slug="careerId" />
 
   <FooterComp />
 </template>
@@ -20,7 +20,7 @@ export default {
   },
   data() {
     return {
-      careerId: this.$route.params.id
+      careerId: this.$route.params.slug
     }
   },
   props:['id'],

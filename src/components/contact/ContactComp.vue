@@ -15,7 +15,7 @@
       </div>
 
       <div class="body-contact">
-        <form action="" class="form-window show-pop">
+        <form class="form-window show-pop" @submit.prevent="submitForm">
           <div class="form-contact">
             <div class="boxie">
               <div class="con-wrap">
@@ -25,6 +25,7 @@
                   placeholder="First Name"
                   name="text"
                   autocomplete="off"
+                  v-model="form.firstName"
                   required
                 />
               </div>
@@ -37,6 +38,7 @@
                   placeholder="Last Name"
                   name="text"
                   autocomplete="off"
+                  v-model="form.lastName"
                   required
                 />
               </div>
@@ -49,6 +51,7 @@
                   placeholder="Email Address"
                   name="text"
                   autocomplete="off"
+                  v-model="form.email"
                   required
                 />
               </div>
@@ -61,6 +64,7 @@
                   placeholder="Phone Number"
                   name="text"
                   autocomplete="off"
+                  v-model="form.phone"
                   required
                 />
               </div>
@@ -72,10 +76,11 @@
               id=""
               rows="13"
               placeholder="Type message here"
+              v-model="form.message"
             ></textarea>
           </div>
           <!-- <button type="submit" class="btn-send">Send</button> -->
-          <div type="submit" class="btn-send">Send</div>
+          <button type="submit" class="btn-send">Send</button>
         </form>
 
         <div class="send-success hide-pop">
@@ -95,9 +100,21 @@
 
 <script>
 import $ from "jquery";
+import {postContent} from "@/api/rimba";
 
-export default {
+export default {  
   name: "ContactComp",
+  data() {
+    return {
+      form:{
+        firstName:"",
+        lastName:"",
+        email:"",
+        phone:"",
+        message:""
+      }
+    }
+  },
   props: {
     msg: String,
   },
@@ -108,6 +125,24 @@ export default {
       $(".send-success").removeClass("hide-pop");
       $(".send-success").addClass("show-pop");
     });
+  },
+  methods: {
+    async submitForm(){
+      console.log("masukkk")
+      const tempData = {
+        first_name: this.form.firstName,
+        last_name: this.form.lastName,
+        email: this.form.email,
+        phone_number: this.form.phone,
+        messages: this.form.message
+      }
+      const getResponse = await postContent('contact', tempData);
+      if(getResponse.status == 200){
+        alert("Pesan berhasil dikirim");
+      }else{
+        alert("Pesan gagal dikirim");
+      }
+    }
   },
 };
 </script>

@@ -259,6 +259,13 @@ export default {
       index: 0, // default: 0
       imageData: [],
       filteredImage: [],
+      pagination: {
+        links: [],
+        last_page: null,
+        next_page: null,
+        prev_page: null,
+        current_page: null,
+      },
       media: process.env.VUE_APP_MEDIA_URL,
     };
   },
@@ -270,25 +277,44 @@ export default {
     handleHide() {
       this.visible = false;
     },
-    async refreshImage() {
-      const getResponse = await getContent("gallery");
+    async refreshImage(url) {
+      const getResponse = await getContent(url);
       if (getResponse.status == 200) {
-        this.imageData = getResponse.data.data;
+        this.imageData = getResponse.data.data.data;
         this.filteredImage = [];
         this.imageData.map((image) => {
           this.filteredImage.push(this.media + image.image);
         });
+
+        this.pagination.links = getResponse.data.data.links;
+        this.pagination.last_page = getResponse.data.data.last_page;
+        this.pagination.current_page = getResponse.data.data.current_page;
       } else {
         console.log(getResponse);
       }
     },
     filterImage(year) {
-      this.filteredImage = [];
-      this.imageData.map((image) => {
-        if (image.year == year) {
-          this.filteredImage.push(this.media + image.image);
-        }
-      });
+      this.refreshImage('gallery?year=' + year);
+    },
+    paginationClick(url) {
+      if (url != null) {
+        const splitResult = url.split("/");
+        splitResult.map((item) => {
+          if (item.includes("gallery")) {
+            this.refreshImage(item);
+          }
+        });
+      }
+    },
+    paginationClass(url, isActive) {
+      let classes = "";
+      if (url === null) {
+        classes = classes + "disabled ";
+      }
+      if (isActive) {
+        classes = classes + "current";
+      }
+      return classes;
     },
   },
   name: "GalleryComp",
@@ -296,7 +322,7 @@ export default {
     msg: String,
   },
   mounted() {
-    this.refreshImage();
+    this.refreshImage('gallery');
   },
 };
 </script>

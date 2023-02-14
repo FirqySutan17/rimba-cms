@@ -83,7 +83,7 @@
               </div>
             </div>
             <div class="boxie">
-              <router-link :to="{name: 'career-detail', params:{id: career.id}}" class="btn-details">
+              <router-link :to="{name: 'career-detail', params:{slug: career.slug}}" class="btn-details">
                 See details
               </router-link>
             </div>
