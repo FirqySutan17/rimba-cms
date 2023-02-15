@@ -6,11 +6,11 @@
           <img src="@/assets/images/career/rimba-logo.png" alt="" />
         </div>
         <div class="boxie">
-          You are applying for a <strong>UI/UX Designer</strong> position <br />
-          at <strong>PT. RIMBA ANANTA VIKASA INDONESIA</strong>
+          You are applying for a <strong>{{ career.name }}</strong> position <br />
+          at <strong>{{ career.locatione.name }}</strong>
         </div>
       </div>
-      <form action="">
+      <form @submit.prevent="submitForm()">
         <div class="career-form">
           <div class="boxie">
             <div class="form-group">
@@ -23,6 +23,7 @@
                 name="fullname"
                 class="input-form"
                 placeholder="Type your text here"
+                v-model="formData.name"
               />
             </div>
 
@@ -35,7 +36,8 @@
                 id="phone"
                 class="form-control input-form"
                 placeholder="8xxx xxxx xxxx"
-                name="name"
+                name="phone_number"
+                v-model="formData.phone_number"
               />
             </div>
 
@@ -48,8 +50,8 @@
                 <p>Upload the document in .PDF max 10MB</p>
                 <br />
 
-                <button>Browse File</button>
-                <input type="file" hidden />
+                <button type="button">Browse File</button>
+                <input type="file" hidden  v-on:change="formData.cv" accept="application/pdf"/>
               </div>
             </div>
           </div>
@@ -64,6 +66,7 @@
                 name="email"
                 class="input-form"
                 placeholder="Type your text here"
+                v-model="formData.email"
               />
             </div>
 
@@ -75,6 +78,7 @@
                 name="coverl"
                 id="cover-letter"
                 placeholder="Write your cover letter here..."
+                v-model="formData.cover_letter"
               ></textarea>
             </div>
           </div>
@@ -90,9 +94,8 @@
           <!-- <input type="checkbox" id="check" />
           <label class="show_button" for="check">Close</label> -->
           <button
-            @click="showModalSuccess = true"
             class="btn-ok ml-2"
-            type="button"
+            type="submit"
           >
             Send
           </button>
@@ -114,6 +117,7 @@ import ModalSuccess from "./ModalSuccess.vue";
 import ModalClose from "./ModalClose.vue";
 import "intl-tel-input/build/css/intlTelInput.css";
 import intlTelInput from "intl-tel-input";
+import { postContent } from "@/api/rimba";
 
 export default {
   components: { ModalSuccess, ModalClose },
@@ -121,7 +125,17 @@ export default {
     return {
       showModalSuccess: false,
       showModalClose: false,
+      formData:{
+        name:"",
+        email:"",
+        phone_number:"",
+        cv: null,
+        cover_letter:""
+      }
     };
+  },
+  props:{
+    career: Object
   },
   name: "ModalForm",
   mounted: function () {
@@ -172,7 +186,7 @@ export default {
       //getting user select file and [0] this means if user select multiple files then we'll select only the first one
       file = this.files[0];
       dropArea.classList.add("active");
-      showFile(); //calling function
+      // showFile(); //calling function
     });
 
     //If user Drag File Over DropArea
@@ -193,7 +207,7 @@ export default {
       event.preventDefault(); //preventing from default behaviour
       //getting user select file and [0] this means if user select multiple files then we'll select only the first one
       file = event.dataTransfer.files[0];
-      showFile(); //calling function
+      // showFile(); //calling function
     });
 
     function showFile() {
@@ -213,6 +227,16 @@ export default {
         alert("This is not an Image File!");
         dropArea.classList.remove("active");
         dragText.textContent = "Drag & Drop to Upload File";
+      }
+    }
+  },
+  methods: {
+    async submitForm(){
+      const getResponse = await postContent('career-form', this.formData);
+      if(getResponse.status == 200){
+        this.showModalSuccess = true;
+      }else{
+        console.log(getResponse);
       }
     }
   },

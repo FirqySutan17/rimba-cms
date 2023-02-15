@@ -41,7 +41,7 @@
             :key="blog.id"
             class="blog-item gallery-item all"
           >
-            <img src="@/assets/images/blog/img-1.png" alt="" />
+            <img :src='blog._links["wp:featuremedia"][0].href' alt="" />
             <div class="cat-date">
               <div class="boxie">{{ checkCategory(blog.categories) }}</div>
               <div class="boxie">5 min read</div>
@@ -95,6 +95,7 @@ export default {
       const getResponse = await getBlog(url);
       if (getResponse.status === 200) {
         this.blogs = getResponse.data;
+        console.log(this.blogs[1]._links["wp:featuredmedia"]);
       } else {
         console.log(getResponse);
       }

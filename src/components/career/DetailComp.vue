@@ -102,7 +102,7 @@
               </div>
 
               <router-link
-                :to="{ name: 'career-detail', params: { id: job.id } }"
+                :to="{ name: 'career-detail', params: { slug: job.slug } }"
                 class="btn-details"
               >
                 See details
@@ -112,7 +112,7 @@
         </div>
       </div>
     </div>
-    <ModalForm v-show="showModal" @close-modal="showModal = false" />
+    <ModalForm v-show="showModal" @close-modal="showModal = false" :career="career" />
   </div>
 </template>
 

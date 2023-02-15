@@ -15,7 +15,7 @@
       </div>
 
       <div class="body-contact">
-        <form class="form-window show-pop" @submit.prevent="submitForm">
+        <form class="form-window show-pop" :class="isSuccess ? 'hide-pop' : 'show-pop'" @submit.prevent="submitForm">
           <div class="form-contact">
             <div class="boxie">
               <div class="con-wrap">
@@ -83,7 +83,7 @@
           <button type="submit" class="btn-send">Send</button>
         </form>
 
-        <div class="send-success hide-pop">
+        <div class="send-success" :class="isSucces ? 'show-pop' : 'hide-pop'">
           <img src="@/assets/images/send.png" alt="" />
           <h2>Woo hoo!</h2>
           <p>
@@ -112,7 +112,8 @@ export default {
         email:"",
         phone:"",
         message:""
-      }
+      },
+      isSuccess: false
     }
   },
   props: {
@@ -128,7 +129,6 @@ export default {
   },
   methods: {
     async submitForm(){
-      console.log("masukkk")
       const tempData = {
         first_name: this.form.firstName,
         last_name: this.form.lastName,
@@ -138,7 +138,7 @@ export default {
       }
       const getResponse = await postContent('contact', tempData);
       if(getResponse.status == 200){
-        alert("Pesan berhasil dikirim");
+        isSuccess = true;
       }else{
         alert("Pesan gagal dikirim");
       }
