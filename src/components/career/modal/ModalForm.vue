@@ -6,7 +6,8 @@
           <img src="@/assets/images/career/rimba-logo.png" alt="" />
         </div>
         <div class="boxie">
-          You are applying for a <strong>{{ career.name }}</strong> position <br />
+          You are applying for a <strong>{{ career.name }}</strong> position
+          <br />
           at <strong>{{ career.locatione.name }}</strong>
         </div>
       </div>
@@ -51,7 +52,7 @@
                 <br />
 
                 <button type="button">Browse File</button>
-                <input type="file" hidden  v-on:change="formData.cv" accept="application/pdf"/>
+                <input type="file" hidden @change="selectFile" />
               </div>
             </div>
           </div>
@@ -93,12 +94,7 @@
           </button>
           <!-- <input type="checkbox" id="check" />
           <label class="show_button" for="check">Close</label> -->
-          <button
-            class="btn-ok ml-2"
-            type="submit"
-          >
-            Send
-          </button>
+          <button class="btn-ok ml-2" type="submit">Send</button>
         </div>
       </form>
     </div>
@@ -125,17 +121,17 @@ export default {
     return {
       showModalSuccess: false,
       showModalClose: false,
-      formData:{
-        name:"",
-        email:"",
-        phone_number:"",
+      formData: {
+        name: "",
+        email: "",
+        phone_number: "",
         cv: null,
-        cover_letter:""
-      }
+        cover_letter: "",
+      },
     };
   },
-  props:{
-    career: Object
+  props: {
+    career: Object,
   },
   name: "ModalForm",
   mounted: function () {
@@ -182,37 +178,74 @@ export default {
       input.click(); //if user click on the button then the input also clicked
     };
 
-    input.addEventListener("change", function () {
-      //getting user select file and [0] this means if user select multiple files then we'll select only the first one
-      file = this.files[0];
-      dropArea.classList.add("active");
-      // showFile(); //calling function
-    });
+    // input.addEventListener("change", function () {
+    //   //getting user select file and [0] this means if user select multiple files then we'll select only the first one
+    //   // this.formData.cv = this.files[0];
+    //   console.log(this.files[0]);
+    //   dropArea.classList.add("active");
+    //   showFile(); //calling function
+    // });
 
-    //If user Drag File Over DropArea
-    dropArea.addEventListener("dragover", (event) => {
-      event.preventDefault(); //preventing from default behaviour
-      dropArea.classList.add("active");
-      dragText.textContent = "Release to Upload File";
-    });
+    // //If user Drag File Over DropArea
+    // dropArea.addEventListener("dragover", (event) => {
+    //   event.preventDefault(); //preventing from default behaviour
+    //   dropArea.classList.add("active");
+    //   dragText.textContent = "Release to Upload File";
+    // });
 
-    //If user leave dragged File from DropArea
-    dropArea.addEventListener("dragleave", () => {
-      dropArea.classList.remove("active");
-      dragText.textContent = "Drag & Drop to Upload File";
-    });
+    // //If user leave dragged File from DropArea
+    // dropArea.addEventListener("dragleave", () => {
+    //   dropArea.classList.remove("active");
+    //   dragText.textContent = "Drag & Drop to Upload File";
+    // });
 
-    //If user drop File on DropArea
-    dropArea.addEventListener("drop", (event) => {
-      event.preventDefault(); //preventing from default behaviour
-      //getting user select file and [0] this means if user select multiple files then we'll select only the first one
-      file = event.dataTransfer.files[0];
-      // showFile(); //calling function
-    });
-
-    function showFile() {
-      let fileType = file.type; //getting selected file type
-      let validExtensions = ["image/jpeg", "image/jpg", "image/png"]; //adding some valid image extensions in array
+    // //If user drop File on DropArea
+    // dropArea.addEventListener("drop", (event) => {
+    //   event.preventDefault(); //preventing from default behaviour
+    //   //getting user select file and [0] this means if user select multiple files then we'll select only the first one
+    //   this.formData.cv = event.dataTransfer.files[0];
+    //   showFile(); //calling function
+    // });
+  },
+  methods: {
+    async submitForm() {
+      const tempData = {
+        name: this.formData.name,
+        email: this.formData.email,
+        phone_number: this.formData.phone_number,
+        cv: this.formData.cv,
+        cover_letter: this.formData.cover_letter
+      }
+      console.log(tempData);
+      const getResponse = await postContent("career-form", tempData);
+      if (getResponse.status == 200) {
+        this.showModalSuccess = true;
+        this.formData.name= "";
+        this.formData.email= "";
+        this.formData.phone_number= "";
+        this.formData.cv= null;
+        this.formData.cover_letter= "";
+      } else {
+        console.log(getResponse);
+      }
+    },
+    selectFile(event) {
+      const dropArea = document.querySelector(".drag-area");
+      const files = event.target.files;
+      if (files.length > 0) {
+        this.formData.cv = files[0];
+        dropArea.classList.add("active");
+        this.showFile();
+      } else {
+        this.formData.cv = null;
+        dropArea.classList.remove("active");
+      }
+      console.log(this.formData.cv);
+    },
+    showFile() {
+      const dropArea = document.querySelector(".drag-area");
+      let fileType = this.formData.cv.type; //getting selected file type
+      let validExtensions = ["application/pdf"]; //adding some valid image extensions in array
       if (validExtensions.includes(fileType)) {
         //if user selected file is an image file
         let fileReader = new FileReader(); //creating new FileReader object
@@ -220,25 +253,15 @@ export default {
           let fileURL = fileReader.result; //passing user file source in fileURL variable
           // UNCOMMENT THIS BELOW LINE. I GOT AN ERROR WHILE UPLOADING THIS POST SO I COMMENTED IT
           // let imgTag = `<img src="${fileURL}" alt="image">`; //creating an img tag and passing user selected file source inside src attribute
-          dropArea.innerHTML = imgTag; //adding that created img tag inside dropArea container
+          dropArea.innerHTML = this.formData.cv.name; //adding that created img tag inside dropArea container
         };
-        fileReader.readAsDataURL(file);
+        fileReader.readAsDataURL(this.formData.cv);
       } else {
-        alert("This is not an Image File!");
+        alert("This is not an PDF File!");
         dropArea.classList.remove("active");
         dragText.textContent = "Drag & Drop to Upload File";
       }
-    }
-  },
-  methods: {
-    async submitForm(){
-      const getResponse = await postContent('career-form', this.formData);
-      if(getResponse.status == 200){
-        this.showModalSuccess = true;
-      }else{
-        console.log(getResponse);
-      }
-    }
+    },
   },
 };
 </script>

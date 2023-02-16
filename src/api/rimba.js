@@ -28,7 +28,7 @@ export const getBlog = async (endpoint) => {
 
 export const postContent = async (endpoint, data) =>{
   try{
-    const response = await axios.post(process.env.VUE_APP_API_URL + endpoint, data);
+    const response = await axios.post(process.env.VUE_APP_API_URL + endpoint, data, {headers: { 'content-type': 'multipart/form-data' }});
     return response;
   }catch(error){
     if(!error.response){
