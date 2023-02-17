@@ -16,42 +16,53 @@
 
       <div class="body-blog">
         <div class="filter-blog categoryBox">
-          <span href="#" id="all" class="filter-item active" data-filter="all">
+          <span
+            href="#"
+            id="all"
+            class="filter-item"
+            :class="selectedFilter === 'all' ? 'active' : ''"
+            @click="filterItem(null, 'all')"
+            data-filter="all"
+          >
             All
           </span>
-          <span href="#" id="general" class="filter-item" data-filter="general">
-            General
-          </span>
-          <span href="#" id="tech" class="filter-item" data-filter="tech">
-            Tech
-          </span>
-          <span href="#" id="science" class="filter-item" data-filter="science">
-            Science
-          </span>
-          <span href="#" id="finance" class="filter-item" data-filter="finance">
-            Finance
-          </span>
-          <span href="#" id="finance" class="filter-item" data-filter="finance">
-            Random
+          <span
+            v-for="category in categories"
+            :key="category.id"
+            href="#"
+            :id="category.slug"
+            class="filter-item"
+            :class="selectedFilter === category.slug ? 'active' : ''"
+            :data-filter="category.slug"
+            @click="filterItem(category.id, category.slug)"
+          >
+            {{ category.name }}
           </span>
         </div>
         <div class="blog-list">
           <div
-            v-for="blog in blogs"
+            v-for="blog in filteredBlogs"
             :key="blog.id"
             class="blog-item gallery-item all"
+            :class="checkSlugCategory(blog.categories)"
           >
-            <img :src='blog._links["wp:featuremedia"][0].href' alt="" />
+            <img
+              :src="
+                blog.better_featured_image !== null
+                  ? blog.better_featured_image.source_url
+                  : ''
+              "
+              alt=""
+            />
             <div class="cat-date">
               <div class="boxie">{{ checkCategory(blog.categories) }}</div>
               <div class="boxie">5 min read</div>
             </div>
             <h2>{{ blog.title.rendered }}</h2>
-            <div v-html="blog.excerpt.rendered">
-
-            </div>
-            <a :href="blog.link">Read full article</a>
+            <div v-html="blog.excerpt.rendered"></div>
+            <a :href="blog.link" target="_blank">Read full article</a>
           </div>
+          <div v-if="filteredBlogs.length === 0">Not record found</div>
         </div>
       </div>
     </div>
@@ -88,14 +99,33 @@ export default {
     return {
       blogs: [],
       categories: [],
+      selectedFilter: "all",
+      filteredBlogs: [],
     };
   },
   methods: {
+    filterItem(id, slug) {
+      let tempFilter = [];
+      this.selectedFilter = slug;
+      if (id != null) {
+        this.blogs.map((blog) => {
+          blog.categories.map((categoryId) => {
+            if (categoryId === id) {
+              tempFilter.push(blog);
+            }
+          });
+        });
+      } else {
+        tempFilter = this.blogs;
+      }
+      console.log(id);
+      this.filteredBlogs = tempFilter;
+    },
     async refreshBlogs(url) {
       const getResponse = await getBlog(url);
       if (getResponse.status === 200) {
         this.blogs = getResponse.data;
-        console.log(this.blogs[1]._links["wp:featuredmedia"]);
+        this.filteredBlogs = this.blogs;
       } else {
         console.log(getResponse);
       }
@@ -109,13 +139,26 @@ export default {
       }
     },
     checkCategory(categoriesId) {
+      let categoryName = "";
       categoriesId.map((id) => {
         this.categories.map((category) => {
           if (category.id === id) {
-            return category.name;
+            categoryName = categoryName + " " + category.slug;
           }
         });
       });
+      return categoryName;
+    },
+    checkSlugCategory(categoriesId) {
+      let slug = "";
+      categoriesId.map((id) => {
+        this.categories.map((category) => {
+          if (category.id === id) {
+            slug = slug + " " + category.slug;
+          }
+        });
+      });
+      return slug;
     },
   },
   created() {
