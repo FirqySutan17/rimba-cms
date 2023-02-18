@@ -1,4 +1,9 @@
 <template>
+  <metainfo>
+    <template v-slot:title="{ content }">{{
+      content ? `${content}` : `Rimba House`
+    }}</template>
+  </metainfo>
   <PreloaderComp :isLoading="isLoading" />
   <main v-if="!isLoading">
     <router-view />
@@ -9,6 +14,7 @@
 import HomeView from "./views/HomeView.vue";
 import AboutView from "./views/AboutView.vue";
 import PreloaderComp from "@/components/template/PreloaderComp.vue";
+import { useMeta } from "vue-meta";
 
 export default {
   name: "App",
@@ -24,6 +30,12 @@ export default {
     setTimeout(() => {
       this.isLoading = false;
     }, 9500);
+  },
+  setup() {
+    useMeta({
+      title: "Rimba House",
+      htmlAttrs: { lang: "en", amp: true },
+    });
   },
 };
 </script>
