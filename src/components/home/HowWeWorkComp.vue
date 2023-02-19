@@ -19,12 +19,7 @@
             </div>
             <div class="blog-slider__content">
               <div class="blog-slider__title">{{ item.name }}</div>
-              <div class="blog-slider__text">
-                <pre>
-                    {{ item.description }}
-                  </pre
-                >
-              </div>
+              <div class="blog-slider__text" v-html="item.description"></div>
             </div>
           </div>
 
@@ -35,7 +30,8 @@
             <div class="blog-slider__content">
               <div class="blog-slider__title">Reliable</div>
               <div class="blog-slider__text">
-                You can make your crazy ideas a reality and rely on us to effectively address any business challenges
+                You can make your crazy ideas a reality and rely on us to
+                effectively address any business challenges
               </div>
             </div>
           </div>
@@ -59,7 +55,8 @@
             <div class="blog-slider__content">
               <div class="blog-slider__title">Flexible</div>
               <div class="blog-slider__text">
-                We value our employees’ mental wellness by providing flexible working hours and also having fun while working!
+                We value our employees’ mental wellness by providing flexible
+                working hours and also having fun while working!
               </div>
             </div>
           </div> -->
@@ -87,38 +84,40 @@ export default {
   created() {
     this.refreshHowWeWork();
   },
-  mounted: function () {
-    var swiper = new Swiper(".blog-slider", {
-      spaceBetween: 30,
-      effect: "fade",
-      loop: true,
-      mousewheel: {
-        invert: false,
-      },
-      // autoHeight: true,
-      pagination: {
-        el: ".blog-slider__pagination",
-        clickable: true,
-      },
-      on: {
-        slideChange: function () {
-          if (this.isEnd) {
-            this.loopDestroy();
-            this.loopCreate();
-          }
-          if (this.isBeginning) {
-            this.loopDestroy();
-            this.loopCreate();
-          }
-        },
-      },
-    });
-  },
+  mounted: function () {},
   methods: {
     async refreshHowWeWork() {
       const getResponse = await getContent("how-we-work");
       if (getResponse.status == 200) {
         this.response = getResponse.data.data;
+        this.$nextTick(function () {
+          const swiper = new Swiper(".blog-slider", {
+            spaceBetween: 30,
+            effect: "fade",
+            loop: true,
+            mousewheel: {
+              invert: false,
+            },
+            // autoHeight: true,
+            pagination: {
+              el: ".blog-slider__pagination",
+              clickable: true,
+            },
+            on: {
+              slideChange: function () {
+                if (this.isEnd) {
+                  this.loopDestroy();
+                  this.loopCreate();
+                }
+                if (this.isBeginning) {
+                  this.loopDestroy();
+                  this.loopCreate();
+                }
+              },
+            },
+          });
+        });
+        console.log(swiper);
       } else {
         console.log(getResponse);
       }
