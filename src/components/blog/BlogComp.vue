@@ -64,6 +64,71 @@
           </div>
           <div v-if="filteredBlogs.length === 0">Not record found</div>
         </div>
+        <div class="page-box">
+          <ul class="pagination" role="menubar" aria-label="Pagination">
+            <li :class="currentPage === 1 ? 'disabled' : ''">
+              <a
+                @click="paginationClick(currentPage - 1)"
+                class="pagination-tab"
+              >
+                <span
+                  :style="
+                    currentPage === 1
+                      ? { color: 'white' }
+                      : { color: 'lightseagreen' }
+                  "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-chevron-left"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+                    />
+                  </svg>
+                </span>
+              </a>
+            </li>
+            <li v-for="index in maxPage" :class="paginationClass(index)">
+              <a @click="paginationClick(index)" class="pagination-tab">
+                {{ index }}
+              </a>
+            </li>
+            <li :class="currentPage === maxPage ? 'disabled' : ''">
+              <a
+                @click="paginationClick(currentPage + 1)"
+                class="pagination-tab"
+              >
+                <span
+                  :style="
+                    currentPage === maxPage
+                      ? { color: 'white' }
+                      : { color: 'lightseagreen' }
+                  "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-chevron-right"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+                    />
+                  </svg>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -101,6 +166,8 @@ export default {
       categories: [],
       selectedFilter: "all",
       filteredBlogs: [],
+      currentPage: 1,
+      maxPage: 10,
     };
   },
   methods: {
@@ -121,8 +188,10 @@ export default {
       console.log(id);
       this.filteredBlogs = tempFilter;
     },
-    async refreshBlogs(url) {
-      const getResponse = await getBlog(url);
+    async refreshBlogs() {
+      const getResponse = await getBlog(
+        "posts/?per_page=9&page=" + this.currentPage
+      );
       if (getResponse.status === 200) {
         this.blogs = getResponse.data;
         this.filteredBlogs = this.blogs;
@@ -160,9 +229,20 @@ export default {
       });
       return slug;
     },
+    paginationClick(page) {
+      if (page <= this.maxPage && page > 0) {
+        this.currentPage = page;
+        this.refreshBlogs();
+      }
+    },
+    paginationClass(page) {
+      if (page === this.currentPage) {
+        return "current";
+      }
+    },
   },
   created() {
-    this.refreshBlogs("posts/?per_page=9");
+    this.refreshBlogs();
     this.refreshCategories();
   },
 };
