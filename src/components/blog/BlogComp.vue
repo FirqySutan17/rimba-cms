@@ -162,7 +162,7 @@ export default {
     },
   },
   created() {
-    this.refreshBlogs("posts/?per_page=9");
+    this.refreshBlogs("posts/?per_page=10");
     this.refreshCategories();
   },
 };

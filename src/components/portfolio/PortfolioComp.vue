@@ -24,7 +24,11 @@
               <li data-rel="2">Rivers</li>
               <li data-rel="3">Rocks</li>
             </ul>
-            <img class="frame-img" src="@/assets/images/portofolio/frame-img.png" alt="">
+            <img
+              class="frame-img"
+              src="@/assets/images/portofolio/frame-img.png"
+              alt=""
+            />
           </div>
         </div>
         <div class="boxie">
@@ -46,7 +50,7 @@ import $ from "jquery";
 import TreesWin from "@/components/portfolio/slide/TreesWin.vue";
 import RiversWin from "@/components/portfolio/slide/RiversWin.vue";
 import RocksWin from "@/components/portfolio/slide/RocksWin.vue";
-import {getContent} from "@/api/rimba";
+import { getContent } from "@/api/rimba";
 
 export default {
   name: "PortfolioComp",
@@ -75,34 +79,34 @@ export default {
   },
   data() {
     return {
-      portfolio:{
-        trees:[],
-        rivers:[],
-        rocks:[]
-      }
-    }
+      portfolio: {
+        trees: [],
+        rivers: [],
+        rocks: [],
+      },
+    };
   },
   methods: {
-    async refreshPortfolio(){
+    async refreshPortfolio() {
       const getResponse = await getContent("portfolio");
-      if(getResponse.status == 200){
+      if (getResponse.status == 200) {
         const data = getResponse.data.data;
         this.fliterbyType(data);
-      }else{
+      } else {
         console.log(getResponse);
       }
     },
-    fliterbyType(data){
-      data.map((item) => {  
-        if(item.product_type == "River"){
+    fliterbyType(data) {
+      data.map((item) => {
+        if (item.product_type == "River") {
           this.portfolio.rivers.push(item);
-        }else if(item.product_type == "Tree"){
+        } else if (item.product_type == "Tree") {
           this.portfolio.trees.push(item);
-        }else if(item.product_type == "Rock"){
+        } else if (item.product_type == "Rock") {
           this.portfolio.rocks.push(item);
         }
       });
-    } 
+    },
   },
 };
 </script>
@@ -178,16 +182,16 @@ ul.list-porto li:nth-child(3) {
   margin-top: -30px;
 }
 .frame-img {
-    width: 100%;
-    position: absolute;
-    top: -16%;
-    left: 0%;
-    pointer-events: none;
+  width: 100%;
+  position: absolute;
+  top: -16%;
+  left: 0%;
+  pointer-events: none;
 }
 @media (max-width: 1600px) {
   ul.list-porto li {
     padding: 35px 15px;
- }
+  }
 }
 @media (max-width: 1440px) {
   .frame-img {
@@ -228,8 +232,8 @@ ul.list-porto li:nth-child(3) {
     height: 372px;
   }
   ul.list-porto li {
-      padding: 28px 15px;
-      font-size: 24px;
+    padding: 28px 15px;
+    font-size: 24px;
   }
 }
 @media (max-width: 1025px) {
@@ -268,7 +272,7 @@ ul.list-porto li:nth-child(3) {
     margin-bottom: 140px;
   }
   .title-content .boxie:nth-child(2) {
-      grid-column: span 7 !important;
+    grid-column: span 7 !important;
   }
   .title-content .boxie h2 {
     text-align: center;
@@ -299,7 +303,7 @@ ul.list-porto li:nth-child(3) {
 @media (max-width: 768px) {
   .box-porto {
     padding: 0px 56px;
-}
+  }
 }
 @media (max-width: 600px) {
   .wrapper-portfolio {
@@ -310,7 +314,10 @@ ul.list-porto li:nth-child(3) {
     font-size: 22px;
   }
   section.porto-window {
-      height: 415px;
+    height: 415px;
+  }
+  .title-content .boxie:nth-child(2) {
+    margin-bottom: 15px;
   }
 }
 @media (max-width: 500px) {
@@ -339,6 +346,6 @@ ul.list-porto li:nth-child(3) {
   ul.list-porto li {
     padding: 9px 15px;
     font-size: 16px !important;
-}
+  }
 }
 </style>

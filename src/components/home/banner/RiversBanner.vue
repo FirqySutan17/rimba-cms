@@ -77,9 +77,9 @@
             <div class="boxie">
               <h3>VPN (Virtual Private Network)</h3>
               <p>
-                A feature that allows several places to securely share info. This
-            program is frequently used to remotely connect (offline) desktop
-            applications and to share files or folders.
+                A feature that allows several places to securely share info.
+                This program is frequently used to remotely connect (offline)
+                desktop applications and to share files or folders.
               </p>
               <div class="link-visit">
                 <a href="#">See product details</a>
@@ -98,7 +98,7 @@
               <h3>Cloud Server</h3>
               <p>
                 Our cloud is highly dependable, has a lot of bandwidth, and is
-            supported by strict security measures.
+                supported by strict security measures.
               </p>
               <a href="#">See product details</a>
             </div>
@@ -521,7 +521,7 @@ export default {
   }
   .card-box:nth-child(1) .box .boxie a {
     background: #e76b8f;
-    border: 1px solid #e76b8f;
+    border: 1px solid transparent;
     box-shadow: 10px 10px 40px rgba(255, 205, 0, 0.2);
     border-radius: 100px;
     font-weight: 400;
@@ -538,22 +538,22 @@ export default {
     transition: all 0.5s ease;
   }
   .card-box:nth-child(2) .box .boxie a {
-  background: #52b8b1;
-  border: 1px solid #52b8b1;
-  box-shadow: 10px 10px 40px rgba(255, 205, 0, 0.2);
-  border-radius: 100px;
+    background: #52b8b1;
+    border: 1px solid transparent;
+    box-shadow: 10px 10px 40px rgba(255, 205, 0, 0.2);
+    border-radius: 100px;
     font-weight: 400;
     font-size: 12px;
     line-height: 12px;
     color: #ffffff;
     text-decoration: none;
     padding: 10px 20px;
-  transition: all 0.5s ease;
-}
-.card-box:nth-child(2) .box .boxie a:hover {
-  background: transparent;
-  color: #52b8b1;
-  transition: all 0.5s ease;
-}
+    transition: all 0.5s ease;
+  }
+  .card-box:nth-child(2) .box .boxie a:hover {
+    background: transparent;
+    color: #52b8b1;
+    transition: all 0.5s ease;
+  }
 }
 </style>

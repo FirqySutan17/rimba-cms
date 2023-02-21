@@ -114,9 +114,6 @@
                 support your work to stay productive. Checkout now!
               </p>
               <div class="link-visit">
-                <a href="#" style="background: #d2ceca; color: #000"
-                  >See catalogues</a
-                >
                 <div class="best-product"></div>
               </div>
             </div>
@@ -132,9 +129,6 @@
                 Keep an eye on the surroundings to stay safe and under control
               </p>
               <div class="link-visit">
-                <a href="#" style="background: #d2ceca; color: #000"
-                  >See catalogues</a
-                >
                 <div class="best-product"></div>
               </div>
             </div>
@@ -148,9 +142,6 @@
               <h3>Personal Computers</h3>
               <p>A customized software service based on your needs.</p>
               <div class="link-visit">
-                <a href="#" style="background: #d2ceca; color: #000"
-                  >See catalogues</a
-                >
                 <div class="best-product"></div>
               </div>
             </div>
@@ -167,9 +158,6 @@
                 with high security quality
               </p>
               <div class="link-visit">
-                <a href="#" style="background: #d2ceca; color: #000"
-                  >See catalogues</a
-                >
                 <div class="best-product"></div>
               </div>
             </div>
@@ -640,7 +628,7 @@ span.number-4 {
   .card-box-2 .box-2 {
     background: #fff;
     border-radius: 20px;
-    padding: 40px 20px;
+    padding: 40px 20px 10px 20px;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     width: 65%;

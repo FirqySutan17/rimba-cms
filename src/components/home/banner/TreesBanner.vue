@@ -91,7 +91,13 @@
           <div class="box">
             <h2>{{ product[0].name }}</h2>
             <div v-html="product[0].description"></div>
-            <a href="#" :style="{ backgroundColor: product[0].button_color }"
+            <!-- <a href="#" :style="{ backgroundColor: product[0].button_color }">
+              Visit Pinetree
+            </a> -->
+            <a
+              class="btn-trees"
+              :href="product[0].link"
+              :style="{ backgroundColor: product[0].button_color }"
               >Visit Pinetree</a
             >
           </div>
@@ -104,9 +110,16 @@
           <div class="box">
             <h2>{{ product[2].name }}</h2>
             <div v-html="product[2].description"></div>
-            <a href="#" :style="{ backgroundColor: product[2].button_color }"
-              >Visit Oak Tree</a
+            <!-- <a href="#" :style="{ backgroundColor: product[2].button_color }">
+              Visit Oak Tree
+            </a> -->
+            <a
+              class="btn-trees"
+              :href="product[2].link"
+              :style="{ backgroundColor: product[2].button_color }"
             >
+              Visit Oak Tree
+            </a>
           </div>
           <div class="box">
             <img :src="media + product[2].image" :alt="product[2].alt_text" />
@@ -121,7 +134,7 @@
               technical support to recipient locations and tracking handling
               history.
             </p>
-            <a href="#">Visit Mangotree</a>
+            <a href="#" class="btn-trees">Visit Mangotree</a>
           </div>
           <div class="box">
             <img src="@/assets/images/trees/mango-img.png" alt="" />
@@ -136,7 +149,7 @@
               and other tasks required for the transportation of goods by land,
               sea, and air, as well as cargo consolidation.
             </p>
-            <a href="#">Visit Bonsaitree</a>
+            <a href="#" class="btn-trees">Visit Bonsaitree</a>
           </div>
           <div class="box">
             <img src="@/assets/images/trees/bonsai-img.png" alt="" />
@@ -147,9 +160,16 @@
           <div class="box">
             <h2>{{ product[1].name }}</h2>
             <div v-html="product[1].description"></div>
-            <a href="#" :style="{ backgroundColor: product[1].button_color }"
-              >Visit Bambootree</a
+            <!-- <a href="#" :style="{ backgroundColor: product[1].button_color }"></a>
+              Visit Bambootree
+            </a> -->
+            <a
+              class="btn-trees"
+              :href="product[1].link"
+              :style="{ backgroundColor: product[1].button_color }"
             >
+              Visit Bambootree
+            </a>
           </div>
           <div class="box">
             <img :src="media + product[1].image" :alt="product[1].alt_text" />
@@ -167,11 +187,19 @@
               <h3>{{ product[2].name }}</h3>
               <div v-html="product[2].description"></div>
               <div class="link-visit">
-                <a
+                <!-- <a
                   href="#"
                   :style="{ backgroundColor: product[2].button_color }"
-                  >Visit Oak Tree</a
                 >
+                  Visit Oak Tree
+                </a> -->
+                <a
+                  class="btn-trees"
+                  :href="product[2].link"
+                  :style="{ backgroundColor: product[2].button_color }"
+                >
+                  Visit Oak Tree
+                </a>
                 <div class="best-product" v-if="product[2].label == 1"></div>
               </div>
             </div>
@@ -189,11 +217,19 @@
               <div v-html="product[1].description"></div>
 
               <div class="link-visit">
-                <a
+                <!-- <a
                   href="#"
                   :style="{ backgroundColor: product[1].button_color }"
-                  >Visit BambooTree</a
                 >
+                  Visit BambooTree
+                </a> -->
+                <a
+                  class="btn-trees"
+                  :href="product[1].link"
+                  :style="{ backgroundColor: product[1].button_color }"
+                >
+                  Visit BambooTree
+                </a>
                 <div class="best-product" v-if="product[1].label == 1"></div>
               </div>
             </div>
@@ -210,12 +246,19 @@
               <h3>{{ product[0].name }}</h3>
               <div v-html="product[0].description"></div>
               <div class="link-visit">
-                <a
+                <!-- <a
                   href="#"
                   :style="{ backgroundColor: product[0].button_color }"
                   >Visit Pinetree</a
+                > -->
+                <a
+                  class="btn-trees"
+                  :href="product[0].link"
+                  :style="{ backgroundColor: product[0].button_color }"
                 >
-                <div class="best-product" v-if="product[1].label == 1"></div>
+                  Visit Pinetree
+                </a>
+                <div class="best-product" v-if="product[0].label == 1"></div>
               </div>
             </div>
             <div class="boxie">
@@ -234,7 +277,9 @@
                 all issues in one platform.
               </p>
               <div class="link-visit">
-                <a href="#" style="background: #806062">Visit Bonsairee</a>
+                <a href="#" class="btn-trees" style="background: #806062"
+                  >Visit Bonsairee</a
+                >
                 <div class="best-product"></div>
               </div>
             </div>
@@ -251,7 +296,9 @@
               <h3>Mangotree</h3>
               <p>A customized software service based on your needs.</p>
               <div class="link-visit">
-                <a href="#" style="background: #f4916d">Visit Mangotree</a>
+                <a href="#" class="btn-trees" style="background: #f4916d"
+                  >Visit Mangotree</a
+                >
                 <div class="best-product"></div>
               </div>
             </div>
@@ -1139,6 +1186,11 @@ input[type="checkbox"] {
   width: 70%;
   left: -350px;
   top: 80px;
+}
+.btn-trees:hover {
+  background-color: transparent !important;
+  border: 1px solid #000 !important;
+  color: #000 !important;
 }
 /* End Shrink Box */
 

@@ -48,7 +48,9 @@
                 autocomplete="off"
               />
             </div>
-            <div class="btn-search" @click="searchCareer"><i class="fa fa-search"></i> Search</div>
+            <div class="btn-search" @click="searchCareer">
+              <i class="fa fa-search"></i> Search
+            </div>
             <!-- <button type="submit" class="btn-search">
               <i class="fa fa-search"></i> Search
             </button> -->
@@ -83,7 +85,10 @@
               </div>
             </div>
             <div class="boxie">
-              <router-link :to="{name: 'career-detail', params:{slug: career.slug}}" class="btn-details">
+              <router-link
+                :to="{ name: 'career-detail', params: { slug: career.slug } }"
+                class="btn-details"
+              >
                 See details
               </router-link>
             </div>
@@ -211,7 +216,7 @@ export default {
         lastPage: null,
         links: [],
       },
-      searchText: ""
+      searchText: "",
     };
   },
   methods: {
@@ -238,7 +243,7 @@ export default {
       this.selectedLocation = name;
       const optionMenu = document.querySelector(".select-menu");
       optionMenu.classList.remove("active");
-      this.refreshCareer('career?location=' + id);
+      this.refreshCareer("career?location=" + id);
     },
     paginationClass(url, isActive) {
       let classes = "";
@@ -260,13 +265,13 @@ export default {
         });
       }
     },
-    searchCareer(){
-      if(this.searchText != ""){
-        this.refreshCareer('career?name='+this.searchText);
-      }else{
-        this.refreshCareer('career');
+    searchCareer() {
+      if (this.searchText != "") {
+        this.refreshCareer("career?name=" + this.searchText);
+      } else {
+        this.refreshCareer("career");
       }
-    }
+    },
   },
   created() {
     this.refreshLocation();
@@ -584,6 +589,15 @@ span.number-item {
   }
   .job-list .job-item {
     width: 90%;
+  }
+  .job-head {
+    padding: 50px 40px;
+  }
+  .job-detail .boxie-job:nth-child(1) {
+    padding: 40px 20px;
+  }
+  .wrap-ben {
+    grid-column: span 8;
   }
 }
 @media (max-width: 420px) {

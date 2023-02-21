@@ -85,7 +85,7 @@
                 <input
                   class="select-box__input"
                   type="radio"
-                  id="12"
+                  id="6"
                   value="13"
                   name="Ben"
                 />
@@ -348,6 +348,9 @@ export default {
   .select-box {
     width: 50%;
   }
+  .timeline-marker::after {
+    height: 417px;
+  }
 }
 @media (min-width: 1200px) {
   .select-box {
@@ -493,6 +496,9 @@ export default {
   }
   .title-wrap .circle-title-gallery {
     left: 35%;
+  }
+  .timeline-marker::after {
+    height: 500px;
   }
 }
 @media (max-width: 500px) {

@@ -8,29 +8,22 @@
       </div>
 
       <div class="wrapper-content-blog">
-        <div class="box">
-          <img src="@/assets/images/blog-1.png" alt="" />
+        <div v-for="blog in blogs" :key="blog.id" class="box">
+          <img
+            :src="
+              blog.better_featured_image !== null
+                ? blog.better_featured_image.source_url
+                : ''
+            "
+            alt=""
+          />
           <div class="b-content">
-            <p>Web Development</p>
-            <h5>Membuat Website Dengan mudah Menggunakan Wordpress</h5>
+            <p></p>
+            <h5>{{ blog.title.rendered }}</h5>
           </div>
         </div>
 
-        <div class="box">
-          <img src="@/assets/images/blog-2.png" alt="" />
-          <div class="b-content">
-            <p>Web Development</p>
-            <h5>Perbedaan SEO dan SEM Mana yg lebih baik ?</h5>
-          </div>
-        </div>
-
-        <div class="box">
-          <img src="@/assets/images/blog-3.png" alt="" />
-          <div class="b-content">
-            <p>Web Development</p>
-            <h5>Bagaimana cara kerja agar lebih produktif jika WFH ?</h5>
-          </div>
-        </div>
+        <div v-if="filteredBlogs.length === 0">Not record found</div>
       </div>
 
       <div class="wrapper-btn">
@@ -41,10 +34,79 @@
 </template>
 
 <script>
+import { getBlog } from "@/api/rimba";
 export default {
   name: "BlogComp",
   props: {
     msg: String,
+  },
+  data() {
+    return {
+      blogs: [],
+      filteredBlogs: [],
+    };
+  },
+  methods: {
+    filterItem(id, slug) {
+      let tempFilter = [];
+      this.selectedFilter = slug;
+      if (id != null) {
+        this.blogs.map((blog) => {
+          blog.categories.map((categoryId) => {
+            if (categoryId === id) {
+              tempFilter.push(blog);
+            }
+          });
+        });
+      } else {
+        tempFilter = this.blogs;
+      }
+      console.log(id);
+      this.filteredBlogs = tempFilter;
+    },
+    async refreshBlogs(url) {
+      const getResponse = await getBlog(url);
+      if (getResponse.status === 200) {
+        this.blogs = getResponse.data;
+        this.filteredBlogs = this.blogs;
+      } else {
+        console.log(getResponse);
+      }
+    },
+    async refreshCategories() {
+      const getResponse = await getBlog("categories");
+      if (getResponse.status === 200) {
+        this.categories = getResponse.data;
+      } else {
+        console.log(getResponse);
+      }
+    },
+    checkCategory(categoriesId) {
+      let categoryName = "";
+      categoriesId.map((id) => {
+        this.categories.map((category) => {
+          if (category.id === id) {
+            categoryName = categoryName + " " + category.slug;
+          }
+        });
+      });
+      return categoryName;
+    },
+    checkSlugCategory(categoriesId) {
+      let slug = "";
+      categoriesId.map((id) => {
+        this.categories.map((category) => {
+          if (category.id === id) {
+            slug = slug + " " + category.slug;
+          }
+        });
+      });
+      return slug;
+    },
+  },
+  created() {
+    this.refreshBlogs("posts/?per_page=3");
+    this.refreshCategories();
   },
 };
 </script>

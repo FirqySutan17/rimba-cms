@@ -631,7 +631,7 @@ export default {
 }
 @media (max-width: 600px) {
   .filter-year {
-    margin: 20px 70px 50px 70px;
+    margin: 20px 20px 50px 20px !important;
   }
   .event-content .boxie {
     grid-column: span 6 !important;

@@ -107,7 +107,7 @@ export default {
 }
 .wrapper-inter .box:nth-child(3) a {
   background: #ffffff;
-  border: 1px solid #ffffff;
+  border: 1px solid transparent;
   box-shadow: 10px 10px 40px rgba(164, 164, 164, 0.25);
   border-radius: 50px;
   display: flex;

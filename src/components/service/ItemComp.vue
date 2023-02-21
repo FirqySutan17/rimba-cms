@@ -23,7 +23,7 @@
 
           <div v-html="product.description"></div>
           <a
-            href="#"
+            :href="product.link"
             class="btn-oaktree"
             :style="{ backgroundColor: product.button_color }"
             >Request a demo</a
@@ -153,5 +153,18 @@ export default {
   width: 20%;
   object-fit: contain;
   margin-left: 20px;
+}
+
+@media (max-width: 1024px) {
+  .label-product {
+    width: 25% !important;
+  }
+}
+@media (max-width: 600px) {
+  .title-set-product {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 </style>

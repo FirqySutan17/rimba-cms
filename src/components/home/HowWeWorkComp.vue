@@ -182,6 +182,9 @@ export default {
   .title-wrap .circle-title {
     left: 36.5%;
   }
+  .blog-slider__text p {
+    margin-right: 0px !important;
+  }
 }
 @media (max-width: 992px) {
   .wrapper-howwework {
