@@ -134,7 +134,7 @@
               technical support to recipient locations and tracking handling
               history.
             </p>
-            <a href="#" class="btn-trees">Visit Mangotree</a>
+            <a href="#" class="btn-trees" style="background-color: #FFCD00; border: 1px solid transparent;">Visit Mangotree</a>
           </div>
           <div class="box">
             <img src="@/assets/images/trees/mango-img.png" alt="" />
@@ -145,14 +145,13 @@
           <div class="box">
             <h2>Bonsaitree</h2>
             <p>
-              Bonsaitree is in charge of transportation, contract negotiations,
-              and other tasks required for the transportation of goods by land,
-              sea, and air, as well as cargo consolidation.
+              Bonsaitree is in charge of transportation, contract negotiations, and other tasks required for the transportation of goods by land, sea, and air, as well as cargo consolidation.
             </p>
-            <a href="#" class="btn-trees">Visit Bonsaitree</a>
+            <!-- <a href="#" class="btn-trees">Visit Bonsaitree</a> -->
+            <h3 style="color:#FFCD00;">Coming Soon!</h3>
           </div>
           <div class="box">
-            <img src="@/assets/images/trees/bonsai-img.png" alt="" />
+            <img src="@/assets/images/bonsai.png" alt="" />
           </div>
         </div>
 
@@ -277,14 +276,15 @@
                 all issues in one platform.
               </p>
               <div class="link-visit">
-                <a href="#" class="btn-trees" style="background: #806062"
+                <!-- <a href="#" class="btn-trees" style="background: #806062"
                   >Visit Bonsairee</a
-                >
+                > -->
+                <h3 style="color:#FFCD00;">Coming Soon!</h3>
                 <div class="best-product"></div>
               </div>
             </div>
             <div class="boxie">
-              <img src="@/assets/images/trees/bonsai-img.png" alt="" />
+              <img src="@/assets/images/bonsai.png" alt="" style="width: 25% !important" />
             </div>
           </div>
         </div>
@@ -296,9 +296,7 @@
               <h3>Mangotree</h3>
               <p>A customized software service based on your needs.</p>
               <div class="link-visit">
-                <a href="#" class="btn-trees" style="background: #f4916d"
-                  >Visit Mangotree</a
-                >
+                <a href="#" class="btn-trees" style="background-color: #FFCD00; border: 1px solid transparent;">Visit Mangotree</a>
                 <div class="best-product"></div>
               </div>
             </div>

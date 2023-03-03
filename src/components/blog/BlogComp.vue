@@ -60,7 +60,15 @@
             </div>
             <h2>{{ blog.title.rendered }}</h2>
             <div v-html="blog.excerpt.rendered"></div>
-            <a :href="blog.link" target="_blank">Read full article</a>
+            <router-link
+              :to="{
+                name: 'blog-detail',
+                params: { id: blog.id },
+              }"
+            >
+              Read full article
+            </router-link>
+            <!-- <a :href="blog.link" target="_blank"></a> -->
           </div>
           <div v-if="filteredBlogs.length === 0">Not record found</div>
         </div>
@@ -195,6 +203,7 @@ export default {
       if (getResponse.status === 200) {
         this.blogs = getResponse.data;
         this.filteredBlogs = this.blogs;
+        console.log(getResponse);
       } else {
         console.log(getResponse);
       }
@@ -242,11 +251,7 @@ export default {
     },
   },
   created() {
-<<<<<<< HEAD
-    this.refreshBlogs("posts/?per_page=10");
-=======
     this.refreshBlogs();
->>>>>>> b71ab3eb0e1a5909b716629b4f38bf42f9af4564
     this.refreshCategories();
   },
 };
@@ -261,6 +266,8 @@ export default {
   text-align: left;
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   scrollbar-width: none;
+  display: flex;
+  overflow-x: auto;
 }
 .filter-blog::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
@@ -342,6 +349,8 @@ export default {
   padding: 0px 15px 10px 15px;
   cursor: pointer;
   transition: all 0.5s ease;
+  flex-grow: 1;
+  flex-shrink: 0;
 }
 .filter-item:hover {
   color: #21918a;

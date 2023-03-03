@@ -59,23 +59,23 @@
         <div class="box">
           <h3>Latest Product</h3>
           <div class="a-div">
-            <a href="#"><i class="bx bxs-chevron-right"></i> Oaktree</a>
+            <a href="https://oaktree.id/" target="_blank"
+              ><i class="bx bxs-chevron-right"></i> Oaktree</a
+            >
           </div>
 
           <div class="a-div">
-            <a href="#"><i class="bx bxs-chevron-right"></i> Bambootree</a>
+            <i class="bx bxs-chevron-right"></i> Bambootree
           </div>
 
           <div class="a-div">
-            <a href="#"><i class="bx bxs-chevron-right"></i> Mangotree</a>
+            <i class="bx bxs-chevron-right"></i> Mangotree
           </div>
 
-          <div class="a-div">
-            <a href="#"><i class="bx bxs-chevron-right"></i> Pinetree</a>
-          </div>
+          <div class="a-div"><i class="bx bxs-chevron-right"></i> Pinetree</div>
 
           <div class="a-div">
-            <a href="#"><i class="bx bxs-chevron-right"></i> Bonsaitree</a>
+            <i class="bx bxs-chevron-right"></i> Bonsaitree
           </div>
         </div>
         <div class="box">
@@ -86,13 +86,21 @@
           </p>
           <span>info@rimbahouse.com</span>
           <br />
-          <span>0821-5623-9826</span>
+          <span>0812-6888-1603</span>
 
           <div class="socmed">
-            <a href="https://www.facebook.com/Rimbananta" target="_blank"><i class="bx bxl-facebook"></i></a>
-            <a href="https://www.instagram.com/rimba_house/" target="_blank"><i class="bx bxl-instagram"></i></a>
-            <a href="https://www.linkedin.com/company/rimba-ananta-vikasa-indonesia/mycompany/" target="_blank"><i class="bx bxl-twitter"></i></a>
-            <a href="https://twitter.com/Rimbahouse" target="_blank"><i class="bx bxl-whatsapp"></i></a>
+            <a href="https://www.facebook.com/Rimbananta" target="_blank"
+              ><i class="bx bxl-facebook"></i
+            ></a>
+            <a href="https://www.instagram.com/rimba_house/" target="_blank"
+              ><i class="bx bxl-instagram"></i
+            ></a>
+            <a href="https://twitter.com/Rimbahouse" target="_blank"
+              ><i class="bx bxl-twitter"></i
+            ></a>
+            <a href="https://wa.me/6281268881603" target="_blank"
+              ><i class="bx bxl-whatsapp"></i
+            ></a>
           </div>
         </div>
       </div>
@@ -109,7 +117,6 @@ export default {
   props: {
     msg: String,
   },
-  
 };
 </script>
 
@@ -184,7 +191,19 @@ export default {
   color: #ffffff;
   margin-bottom: 20px;
 }
+
 .boxie-footer .box a {
+  font-family: "Nunito", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 250%;
+  text-decoration: none;
+  color: #ffffff;
+  width: 100%;
+  transition: all 0.5s ease;
+}
+.boxie-footer .box .a-div {
   font-family: "Nunito", sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -203,6 +222,13 @@ export default {
   margin-bottom: 10px;
 }
 .boxie-footer .box a i {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 22px;
+  margin-right: 10px;
+  margin-top: 0px;
+}
+.boxie-footer .box .a-div i {
   display: inline-block;
   vertical-align: middle;
   font-size: 22px;
@@ -333,9 +359,54 @@ export default {
   .boxie-footer {
     padding: 70px 30px 50px 30px;
   }
+  .boxie-footer .box:nth-child(2) {
+    grid-column: span 5;
+    text-align: left;
+    margin-left: 30px;
+  }
+  .boxie-footer .box:nth-child(3) {
+    grid-column: span 5;
+    text-align: left;
+    margin-top: 0px;
+    margin-left: 30px;
+  }
+  .boxie-footer {
+    overflow: hidden;
+  }
+}
+@media (max-width: 360px) {
+  .boxie-footer .box:nth-child(2) {
+    grid-column: span 5;
+    text-align: left;
+    margin-left: 20px;
+  }
+  .boxie-footer .box:nth-child(3) {
+    grid-column: span 5;
+    text-align: left;
+    margin-top: 0px;
+    margin-left: 20px;
+  }
 }
 
 @media (max-width: 285px) {
+  .boxie-footer .box:nth-child(2) {
+    grid-column: span 10;
+    text-align: left;
+    margin-left: 0px;
+   
+  }
+  .boxie-footer .box:nth-child(3) {
+    grid-column: span 10;
+    text-align: left;
+    margin-top: 40px;
+    margin-left: 0px;
+  }
+  .boxie-footer .box h3 {
+    text-align: center;
+  }
+  .boxie-footer .box .a-div {
+    padding-left: 75px;
+  }
   .boxie-footer {
     padding: 70px 10px 50px 10px;
   }

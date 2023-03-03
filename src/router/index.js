@@ -8,6 +8,7 @@ import GalleryView from "../views/GalleryView.vue";
 import CareerView from "../views/CareerView.vue";
 import CareerDetailView from "../views/CareerDetailView.vue";
 import BlogView from "../views/BlogView.vue";
+import BlogDetailView from "../views/BlogDetailView.vue";
 import ContactView from "../views/ContactView.vue";
 import PortfolioDetailView from "../views/PortfolioDetailView.vue";
 
@@ -33,7 +34,7 @@ const routes = [
     component: PortfolioView,
   },
   {
-    path: "/portfolio/detail/:slug",
+    path: "/portfolio/:slug",
     name: "portfolio-detail",
     component: PortfolioDetailView,
     props: true,
@@ -54,7 +55,7 @@ const routes = [
     component: CareerView,
   },
   {
-    path: "/career/detail/:slug",
+    path: "/career/:slug",
     name: "career-detail",
     component: CareerDetailView,
     props: {
@@ -65,6 +66,12 @@ const routes = [
     path: "/blog",
     name: "blog",
     component: BlogView,
+  },
+  {
+    path: "/blog/:id",
+    name: "blog-detail",
+    component: BlogDetailView,
+    props: true,
   },
   {
     path: "/contact",

@@ -4,10 +4,11 @@
       content ? `${content}` : `Rimba House`
     }}</template>
   </metainfo>
-  <PreloaderComp :isLoading="isLoading" />
+  <!-- <PreloaderComp :isLoading="isLoading" />
   <main v-if="!isLoading">
     <router-view />
-  </main>
+  </main> -->
+  <router-view />
 </template>
 
 <script>

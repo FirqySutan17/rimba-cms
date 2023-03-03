@@ -38,7 +38,7 @@
             program is frequently used to remotely connect (offline) desktop
             applications and to share files or folders.
           </p>
-          <a href="#">See product details</a>
+          <!-- <a href="#">See product details</a> -->
         </div>
         <div class="box">
           <img src="@/assets/images/rivers/icon-laptop.png" alt="" />
@@ -57,7 +57,7 @@
             Our cloud is highly dependable, has a lot of bandwidth, and is
             supported by strict security measures.
           </p>
-          <a href="#">See product details</a>
+          <!-- <a href="#">See product details</a> -->
         </div>
         <div class="box">
           <img src="@/assets/images/rivers/icon-cloud.png" alt="" />

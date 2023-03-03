@@ -31,46 +31,6 @@
                 />
                 <p class="select-box__input-text">Choose year</p>
               </div>
-              <div class="select-box__value" @click="filterbyYear(2017)">
-                <input
-                  class="select-box__input"
-                  type="radio"
-                  id="0"
-                  value="1"
-                  name="Ben"
-                />
-                <p class="select-box__input-text">2017</p>
-              </div>
-              <div class="select-box__value" @click="filterbyYear(2018)">
-                <input
-                  class="select-box__input"
-                  type="radio"
-                  id="1"
-                  value="2"
-                  name="Ben"
-                />
-                <p class="select-box__input-text">2018</p>
-              </div>
-              <div class="select-box__value" @click="filterbyYear(2019)">
-                <input
-                  class="select-box__input"
-                  type="radio"
-                  id="2"
-                  value="3"
-                  name="Ben"
-                />
-                <p class="select-box__input-text">2019</p>
-              </div>
-              <div class="select-box__value" @click="filterbyYear(2020)">
-                <input
-                  class="select-box__input"
-                  type="radio"
-                  id="3"
-                  value="4"
-                  name="Ben"
-                />
-                <p class="select-box__input-text">2020</p>
-              </div>
               <div class="select-box__value" @click="filterbyYear(2021)">
                 <input
                   class="select-box__input"
@@ -115,38 +75,6 @@
                   for="10"
                   aria-hidden="aria-hidden"
                   >Choose year</label
-                >
-              </li>
-              <li>
-                <label
-                  class="select-box__option"
-                  for="0"
-                  aria-hidden="aria-hidden"
-                  >2017</label
-                >
-              </li>
-              <li>
-                <label
-                  class="select-box__option"
-                  for="1"
-                  aria-hidden="aria-hidden"
-                  >2018</label
-                >
-              </li>
-              <li>
-                <label
-                  class="select-box__option"
-                  for="2"
-                  aria-hidden="aria-hidden"
-                  >2019</label
-                >
-              </li>
-              <li>
-                <label
-                  class="select-box__option"
-                  for="3"
-                  aria-hidden="aria-hidden"
-                  >2020</label
                 >
               </li>
               <li>
@@ -427,12 +355,9 @@ export default {
   direction: rtl;
 }
 .stack-img img {
-  position: absolute;
-  top: 0;
-  left: 0%;
   object-fit: cover;
   border-radius: 10px;
-  width: 80%;
+  width: 100%;
   height: 100%;
 }
 .stack-img img:nth-child(1) {
@@ -440,9 +365,11 @@ export default {
 }
 .stack-img img:nth-child(2) {
   right: 10%;
+  display: none;
 }
 .stack-img img:nth-child(3) {
   right: 20%;
+  display: none;
 }
 .event-content .boxie .stack-img {
   height: 340px;

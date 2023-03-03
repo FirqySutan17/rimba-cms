@@ -15,9 +15,15 @@
             noPanelStyleOverride: false,
             circular: true,
             circularFallback: 'bound',
+            align: 'center',
           }"
         >
-          <img v-for="partner in partners" :key="partner.id" :src="media+partner.image" :alt="partner.alt_text"/>
+          <img
+            v-for="partner in partners"
+            :key="partner.id"
+            :src="media + partner.image"
+            :alt="partner.alt_text"
+          />
           <!-- <img src="@/assets/images/partner/part-1.png" />
           <img src="@/assets/images/partner/part-2.png" />
           <img src="@/assets/images/partner/part-3.png" />
@@ -38,7 +44,7 @@ import { AutoPlay, Pagination } from "@egjs/flicking-plugins";
 import "@egjs/vue3-flicking/dist/flicking.css";
 import "@egjs/flicking-plugins/dist/flicking-plugins.css";
 import "@egjs/vue3-flicking/dist/flicking-inline.css";
-import {getContent} from "@/api/rimba"
+import { getContent } from "@/api/rimba";
 
 const plugins = [
   new AutoPlay({ duration: 2000, direction: "NEXT", stopOnHover: false }),
@@ -52,7 +58,7 @@ export default {
     return {
       plugins,
       partners: [],
-      media: process.env.VUE_APP_MEDIA_URL
+      media: process.env.VUE_APP_MEDIA_URL,
     };
   },
   name: "PartnerComp",
@@ -63,14 +69,14 @@ export default {
     this.refreshPartners();
   },
   methods: {
-    async refreshPartners(){
+    async refreshPartners() {
       const getResponse = await getContent("partner");
-      if(getResponse.status == 200){
+      if (getResponse.status == 200) {
         this.partners = getResponse.data.data;
-      }else{
+      } else {
         console.log(getResponse);
       }
-    }
+    },
   },
 };
 </script>

@@ -623,7 +623,7 @@ export default {
 }
 @media (max-width: 600px) {
   .body-box .box:nth-child(2) {
-    padding: 0px 0px;
+    padding: 0px 20px;
   }
   .wrapper-timeline {
     padding: 90px 10px !important;

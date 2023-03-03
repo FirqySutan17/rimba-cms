@@ -113,7 +113,12 @@
         </div>
       </div>
     </div>
-    <ModalForm v-if="career != null" v-show="showModal" @close-modal="showModal = false" :career="career" />
+    <ModalForm
+      v-if="career != null"
+      v-show="showModal"
+      @close-modal="showModal = false"
+      :career="career"
+    />
   </div>
 </template>
 
@@ -141,6 +146,7 @@ export default {
       const getResponse = await getContent("career/" + this.slug);
       if (getResponse.status == 200) {
         this.career = getResponse.data.data;
+        console.log(getResponse);
       } else {
         console.log(getResponse);
       }

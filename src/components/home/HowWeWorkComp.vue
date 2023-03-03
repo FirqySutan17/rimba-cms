@@ -34,31 +34,6 @@
                 effectively address any business challenges
               </div>
             </div>
-          </div>
-
-          <div class="blog-slider__item swiper-slide">
-            <div class="blog-slider__img">
-              <img src="@/assets/images/hww-creative-innovative.png" alt="" />
-            </div>
-            <div class="blog-slider__content">
-              <div class="blog-slider__title">Creative & Innovative</div>
-              <div class="blog-slider__text">
-                We offer the finest ideas to solve your business’ problems
-              </div>
-            </div>
-          </div>
-
-          <div class="blog-slider__item swiper-slide">
-            <div class="blog-slider__img">
-              <img src="@/assets/images/hww-flexible.png" alt="" />
-            </div>
-            <div class="blog-slider__content">
-              <div class="blog-slider__title">Flexible</div>
-              <div class="blog-slider__text">
-                We value our employees’ mental wellness by providing flexible
-                working hours and also having fun while working!
-              </div>
-            </div>
           </div> -->
         </div>
         <div class="blog-slider__pagination"></div>
@@ -102,18 +77,6 @@ export default {
             pagination: {
               el: ".blog-slider__pagination",
               clickable: true,
-            },
-            on: {
-              slideChange: function () {
-                if (this.isEnd) {
-                  this.loopDestroy();
-                  this.loopCreate();
-                }
-                if (this.isBeginning) {
-                  this.loopDestroy();
-                  this.loopCreate();
-                }
-              },
             },
           });
         });

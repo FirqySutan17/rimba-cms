@@ -158,5 +158,8 @@ export default {
   .wrapper-about {
     padding: 100px 0px 70px 0px;
   }
+  .body-box .box:nth-child(2) {
+    padding: 0px 20px;
+  }
 }
 </style>

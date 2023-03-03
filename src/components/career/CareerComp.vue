@@ -46,6 +46,7 @@
                 v-model="searchText"
                 name="search"
                 autocomplete="off"
+                id="inputCareer"
               />
             </div>
             <div class="btn-search" @click="searchCareer">
@@ -57,12 +58,7 @@
           </form>
         </div>
 
-        <div class="front-career show-pop">
-          <h2>Your adventure is about to start</h2>
-          <p>Hunt your dream job at RIMBA!</p>
-        </div>
-
-        <div class="job-list hide-pop">
+        <div class="job-list">
           <div
             class="job-item"
             v-for="(career, index) in careers"
@@ -94,7 +90,10 @@
             </div>
           </div>
 
-          <div class="page-box">
+          <div
+            class="page-box"
+            :style="careers.length === 0 ? 'display: none;' : 'display: block;'"
+          >
             <ul class="pagination" role="menubar" aria-label="Pagination">
               <li
                 v-for="link in pagination.links"
@@ -165,6 +164,13 @@
               </li>
             </ul>
           </div>
+
+          <div v-if="careers.length === 0">
+            <div class="front-career">
+              <h2>Your adventure is about to start</h2>
+              <p>Hunt your dream job at RIMBA!</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -199,11 +205,12 @@ export default {
       });
     });
 
-    $(".btn-search").click(function () {
-      $(".front-career").removeClass("show-pop");
-      $(".front-career").addClass("hide-pop");
-      $(".job-list").removeClass("hide-pop");
-      $(".job-list").addClass("show-pop");
+    var el = document.getElementById("inputCareer");
+    el.addEventListener("keypress", function (event) {
+      if (event.key === "Enter") {
+        // alert(event.key + " " + event.which);
+        event.preventDefault();
+      }
     });
   },
   data() {

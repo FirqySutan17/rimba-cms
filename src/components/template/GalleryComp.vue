@@ -38,26 +38,6 @@
                 <input
                   class="select-box__input"
                   type="radio"
-                  id="0"
-                  value="1"
-                  name="Ben"
-                />
-                <p class="select-box__input-text">2019</p>
-              </div>
-              <div class="select-box__value">
-                <input
-                  class="select-box__input"
-                  type="radio"
-                  id="1"
-                  value="2"
-                  name="Ben"
-                />
-                <p class="select-box__input-text">2020</p>
-              </div>
-              <div class="select-box__value">
-                <input
-                  class="select-box__input"
-                  type="radio"
                   id="2"
                   value="3"
                   name="Ben"
@@ -99,24 +79,6 @@
                   aria-hidden="aria-hidden"
                   @click="refreshImage()"
                   >Choose year</label
-                >
-              </li>
-              <li>
-                <label
-                  class="select-box__option"
-                  for="0"
-                  aria-hidden="aria-hidden"
-                  @click="filterImage('2019')"
-                  >2019</label
-                >
-              </li>
-              <li>
-                <label
-                  class="select-box__option"
-                  for="1"
-                  aria-hidden="aria-hidden"
-                  @click="filterImage('2020')"
-                  >2020</label
                 >
               </li>
               <li>
@@ -331,7 +293,7 @@ export default {
 .wrapper-gallery {
   position: relative;
   background: #fff;
-  padding: 90px 0px;
+  padding: 140px 0px 90px 0px;
   margin: 0 auto;
 }
 .title-wrap .circle-title-gallery {
