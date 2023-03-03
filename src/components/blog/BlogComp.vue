@@ -63,7 +63,7 @@
             <router-link
               :to="{
                 name: 'blog-detail',
-                params: { id: blog.id },
+                params: { slug: blog.slug },
               }"
             >
               Read full article
@@ -102,7 +102,7 @@
                 </span>
               </a>
             </li>
-            <li v-for="index in maxPage" :class="paginationClass(index)">
+            <li v-for="index in maxPage" :class="paginationClass(index)" :key="index">
               <a @click="paginationClick(index)" class="pagination-tab">
                 {{ index }}
               </a>

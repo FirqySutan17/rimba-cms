@@ -3,24 +3,24 @@
     <div class="container">
       <div class="head-blog">
         <div class="boxie-blog-top">
-          <h1>{{ news.title.rendered }}</h1>
-          <div class="blog-ket">
-            Published on January 30, 2023 | Category | Written by
-            <strong style="color: #000">User Name</strong>
+          <h1>{{ news.title?.rendered }}</h1>
+          <div class="blog-ket">Published on {{news?.date}} | {{news?.categories}} | Written by
+            <strong style="color: #000">{{news?.author}}</strong>
           </div>
 
-          <img src="@/assets/images/about-img.png" alt="" />
-          <p>Whats this is for?</p>
+          <img src="{{news?.better_featured_image}}" alt="" />
+          <p>{{news.content?.rendered}}</p>
         </div>
         <div class="boxie-blog-top">
           <div class="more-articles">
             <h3>More articles</h3>
 
-            <div class="a-blog" v-for="blog in blogs">
+            <div class="a-blog" v-for="blog, index in blogs" :key="index">
               <router-link
-                :to="{ name: 'blog-detail', params: { id: blog.id } }"
+                @click="$emit('someEvent',blog.slug )"
+                :to="{ name: 'blog-detail', params: { slug: blog.slug } }"
               >
-                {{ blog.title.rendered }}
+                {{ blog.title?.rendered }}
               </router-link>
             </div>
           </div>
@@ -92,6 +92,7 @@ export default {
   props: {
     msg: String,
     id: String,
+    slug: String,
   },
   data() {
     return {
@@ -120,10 +121,15 @@ export default {
       "href",
       `https://www.linkedin.com/shareArticle?url=${postUrl}&title=${postTitle}`
     );
-    console.log(postUrl);
-    console.log(postTitle);
-    console.log(this.id);
+    // console.log(postUrl);
+    // console.log(postTitle);
+    // console.log(this.id);
     // http: //www.linkedin.com/shareArticle?mini=true&url=
+  },
+  watch: {
+    slug: function(newVal, oldVal) { // watch it
+      this.refreshBlogDetail()
+    }
   },
   methods: {
     moment: function (date) {
@@ -133,10 +139,9 @@ export default {
       return moment(date).format("MMMM DD, YYYY");
     },
     async refreshBlogDetail() {
-      const getResponse = await getBlog("posts/" + this.id + "?_embed");
+      const getResponse = await getBlog("posts/?slug=" + this.slug + "&embed");
       if (getResponse.status == 200) {
-        this.news = getResponse.data;
-        console.log(this.news);
+        if(getResponse.data.length) this.news = getResponse.data[0];
       } else {
         console.log(getResponse);
       }
