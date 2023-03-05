@@ -4,12 +4,22 @@
       <div class="head-blog">
         <div class="boxie-blog-top">
           <h1>{{ news.title?.rendered }}</h1>
-          <div class="blog-ket">Published on {{news?.date}} | {{news?.categories}} | Written by
-            <strong style="color: #000">{{news?.author}}</strong>
+          <div class="blog-ket">Published on {{ date(news?.date) }} | 
+            <!-- {{ categoryName }}  --> Uncategorized
+            | Written by
+            <strong style="color: #000">{{news._embedded?.author[0].name}}</strong>
           </div>
 
-          <img src="{{news?.better_featured_image}}" alt="" />
-          <p>{{news.content?.rendered}}</p>
+          <img
+              :src="
+                news.better_featured_image !== null
+                  ? news.better_featured_image?.source_url
+                  : ''
+              "
+              alt=""
+            />
+          <!-- <img src="{{news?.better_featured_image.source_url}}" alt="" /> -->
+          <p>{{ news.title?.rendered }}</p>
         </div>
         <div class="boxie-blog-top">
           <div class="more-articles">
@@ -26,8 +36,9 @@
           </div>
         </div>
       </div>
-      <div class="body-detail-blog">
-        <h2>A “Dumpster Fire” Breach Response</h2>
+      <div class="body-detail-blog" >
+        <div v-html="news.content?.rendered"></div>
+        <!-- <h2>A “Dumpster Fire” Breach Response</h2>
         <p>
           There is no such thing as a good user-data leak, but how a corporation
           responds when its network security is breached can set the tone for
@@ -62,7 +73,7 @@
           the leak was publicly disclosed in a detailed blog post that revealed
           who was affected, how the breach happened, and what the company had
           done about it.
-        </p>
+        </p> -->
       </div>
 
       <hr />
@@ -98,6 +109,7 @@ export default {
     return {
       news: "",
       blogs: [],
+      categories: [],
       currentPage: 1,
     };
   },
@@ -139,9 +151,10 @@ export default {
       return moment(date).format("MMMM DD, YYYY");
     },
     async refreshBlogDetail() {
-      const getResponse = await getBlog("posts/?slug=" + this.slug + "&embed");
+      const getResponse = await getBlog("posts/?slug=" + this.slug + "&_embed");
       if (getResponse.status == 200) {
         if(getResponse.data.length) this.news = getResponse.data[0];
+        console.log(this.news)
       } else {
         console.log(getResponse);
       }
@@ -157,10 +170,31 @@ export default {
         console.log(getResponse);
       }
     },
+    async refreshCategories() {
+      const getResponse = await getBlog("categories");
+      if (getResponse.status === 200) {
+        this.categories = getResponse.data;
+      } else {
+        console.log(getResponse);
+      }
+    },
+    checkCategory(categoriesId) {
+      let categoryName = "";
+      categoriesId.map((id) => {
+        this.categories.map((category) => {
+          if (category.id === id) {
+            categoryName = categoryName + " " + category.slug;
+          }
+        });
+      });
+      return categoryName;
+      // console.log(categoryName);
+    },
   },
   created() {
     this.refreshBlogDetail();
     this.refreshBlogs();
+    this.refreshCategories();
   },
 };
 </script>
